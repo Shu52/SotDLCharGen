@@ -1,0 +1,44 @@
+﻿@model SotDLCharGen.Models.CharTrait
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>CharTrait</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CharcTraitId" />
+            <div class="form-group">
+                <label asp-for="CharTraitValue" class="control-label"></label>
+                <input asp-for="CharTraitValue" class="form-control" />
+                <span asp-validation-for="CharTraitValue" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CharacterId" class="control-label"></label>
+                <select asp-for="CharacterId" class="form-control" asp-items="ViewBag.CharacterId"></select>
+                <span asp-validation-for="CharacterId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TraitId" class="control-label"></label>
+                <select asp-for="TraitId" class="form-control" asp-items="ViewBag.TraitId"></select>
+                <span asp-validation-for="TraitId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
