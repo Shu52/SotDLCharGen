@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SotDLCharGen.Data;
 
 namespace SotDLCharGen.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181027183251_seed")]
+    partial class seed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -144,10 +146,6 @@ namespace SotDLCharGen.Data.Migrations
                     b.HasKey("AncestryId");
 
                     b.ToTable("Ancestry");
-
-                    b.HasData(
-                        new { AncestryId = 1, AncestryName = "Human" }
-                    );
                 });
 
             modelBuilder.Entity("SotDLCharGen.Models.AncestryBaseTrait", b =>
@@ -169,13 +167,6 @@ namespace SotDLCharGen.Data.Migrations
                     b.HasIndex("TraitId");
 
                     b.ToTable("AncestryBaseTraits");
-
-                    b.HasData(
-                        new { AncestryBaseTraitId = 1, AncestryId = 1, BaseValue = "10", TraitId = 1 },
-                        new { AncestryBaseTraitId = 2, AncestryId = 1, BaseValue = "10", TraitId = 2 },
-                        new { AncestryBaseTraitId = 3, AncestryId = 1, BaseValue = "10", TraitId = 3 },
-                        new { AncestryBaseTraitId = 4, AncestryId = 1, BaseValue = "10", TraitId = 4 }
-                    );
                 });
 
             modelBuilder.Entity("SotDLCharGen.Models.ApplicationUser", b =>
@@ -232,7 +223,7 @@ namespace SotDLCharGen.Data.Migrations
                     b.ToTable("AspNetUsers");
 
                     b.HasData(
-                        new { Id = "97e9207e-9fd9-4cf5-b7e7-722aef313200", AccessFailedCount = 0, ConcurrencyStamp = "91eab135-2652-4e3c-a0cc-9090f4ae2f56", Email = "test@test.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "TEST@TEST.COM", PasswordHash = "AQAAAAEAACcQAAAAEM7gcH1gJvbxmRhsxhNz+2rYKCk5J1xMz15OfbpoD1hGWEt5PpcILBX5mqmHdHa/Sw==", PhoneNumberConfirmed = false, PlayerName = "test", SecurityStamp = "3a24ef91-06c8-4f7e-918f-68977c3c084e", TwoFactorEnabled = false }
+                        new { Id = "716a349a-7bd4-4b76-b9c2-427faf1eef2d", AccessFailedCount = 0, ConcurrencyStamp = "82a26a87-0c8b-40c8-978d-e09af48eaa3f", Email = "test@test.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "TEST@TEST.COM", PasswordHash = "AQAAAAEAACcQAAAAELqKFWZjOEExTvwDwsZ389kxhOUu0kpkgD4JuMBqQ/dp3vcvdG5HDJUJ8KasRVYmQw==", PhoneNumberConfirmed = false, PlayerName = "test", SecurityStamp = "1854645e-25a9-408f-9284-e4bfda3717ef", TwoFactorEnabled = false }
                     );
                 });
 
@@ -297,13 +288,6 @@ namespace SotDLCharGen.Data.Migrations
                     b.HasKey("TraitId");
 
                     b.ToTable("Trait");
-
-                    b.HasData(
-                        new { TraitId = 1, TraitName = "Strength" },
-                        new { TraitId = 2, TraitName = "Agility" },
-                        new { TraitId = 3, TraitName = "Intellect" },
-                        new { TraitId = 4, TraitName = "Will" }
-                    );
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
