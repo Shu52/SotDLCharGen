@@ -232,7 +232,7 @@ namespace SotDLCharGen.Data.Migrations
                     b.ToTable("AspNetUsers");
 
                     b.HasData(
-                        new { Id = "97e9207e-9fd9-4cf5-b7e7-722aef313200", AccessFailedCount = 0, ConcurrencyStamp = "91eab135-2652-4e3c-a0cc-9090f4ae2f56", Email = "test@test.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "TEST@TEST.COM", PasswordHash = "AQAAAAEAACcQAAAAEM7gcH1gJvbxmRhsxhNz+2rYKCk5J1xMz15OfbpoD1hGWEt5PpcILBX5mqmHdHa/Sw==", PhoneNumberConfirmed = false, PlayerName = "test", SecurityStamp = "3a24ef91-06c8-4f7e-918f-68977c3c084e", TwoFactorEnabled = false }
+                        new { Id = "de4882f6-b594-41c5-818b-73093346f575", AccessFailedCount = 0, ConcurrencyStamp = "311bc242-3a20-42fb-ac7e-b0a663bdcc2d", Email = "test@test.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "TEST@TEST.COM", PasswordHash = "AQAAAAEAACcQAAAAEBJUYV/WoJC0uqqwvapmv7OW0O9IhGqpP0YzBl1wUxj2NSu/idStf/XKY2saR4HGsA==", PhoneNumberConfirmed = false, PlayerName = "test", SecurityStamp = "0ab69b38-bab4-4100-85f3-84c53b0b8a33", TwoFactorEnabled = false }
                     );
                 });
 

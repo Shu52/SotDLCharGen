@@ -29,6 +29,7 @@ namespace SotDLCharGen.Data
 
             ApplicationUser user = new ApplicationUser
             {
+                UserName = "test",
                 PlayerName = "test",
                 Email = "test@test.com",
                 NormalizedEmail = "TEST@TEST.COM",
