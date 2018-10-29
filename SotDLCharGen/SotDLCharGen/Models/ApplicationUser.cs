@@ -15,6 +15,8 @@ namespace SotDLCharGen.Models
         [Required]
         [Display(Name = "Player Name")]
         public string PlayerName { get; set; }
+
+        public virtual Character Characters { get; set; }
         
 
     }
