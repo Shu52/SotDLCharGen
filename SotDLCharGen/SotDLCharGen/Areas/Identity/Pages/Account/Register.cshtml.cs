@@ -68,7 +68,7 @@ namespace SotDLCharGen.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl = returnUrl ?? Url.Content("~/");
+            returnUrl = returnUrl ?? Url.Content("~/ApplicationUser/UserHome");
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = Input.PlayerName, PlayerName = Input.PlayerName, Email = Input.Email };
