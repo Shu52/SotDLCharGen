@@ -49,8 +49,7 @@ namespace SotDLCharGen.Controllers
         // GET: Characters/Create
         public IActionResult Create()
         {
-            ViewData["AncestryId"] = new SelectList(_context.Ancestry, "AncestryId", "AncestryId");
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUser, "Id", "Id");
+            ViewData["AncestryName"] = new SelectList(_context.Ancestry, "AncestryName", "AncestryName");
             return View();
         }
 

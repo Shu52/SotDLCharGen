@@ -18,6 +18,7 @@ namespace SotDLCharGen.ViewModels
         }
         [Display(Name = "Character Name" )]
         public string CharacterName { get; set; }
+
         public ICollection <Character> Characters { get; set; }
     }
 }
