@@ -39,7 +39,7 @@ namespace SotDLCharGen.ViewModels
 
         public List<SelectListItem> Ancestries { get; set; }
 
-        private ApplicationDbContext _context;
+
 
 
         public CharacterCreateViewModel(ApplicationDbContext context)

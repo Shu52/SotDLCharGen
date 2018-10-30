@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SotDLCharGen.Data;
 using SotDLCharGen.Models;
+using SotDLCharGen.ViewModels;
 
 namespace SotDLCharGen.Controllers
 {
@@ -49,8 +50,11 @@ namespace SotDLCharGen.Controllers
         // GET: Characters/Create
         public IActionResult Create()
         {
-            ViewData["AncestryName"] = new SelectList(_context.Ancestry, "AncestryName", "AncestryName");
-            return View();
+            CharacterCreateViewModel model = new CharacterCreateViewModel(_context);
+
+            //model.Ancestries = await _context.Ancestry.Select(a=>a.AncestryName).ToListAsync();
+
+            return View(model);
         }
 
         // POST: Characters/Create
