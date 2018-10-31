@@ -31,7 +31,9 @@ namespace SotDLCharGen.Controllers
         [Authorize]
         public async Task<IActionResult> UserHome()
         {
+            //get current user and set them to user
             ApplicationUser user = await GetCurrentUserAsync();
+            //link var to view model
             ApplicationUserViewModel model = new ApplicationUserViewModel(_context);
 
             model.Characters = await _context.Characters.Where(character => character.ApplicationUserId == user.Id).ToListAsync();

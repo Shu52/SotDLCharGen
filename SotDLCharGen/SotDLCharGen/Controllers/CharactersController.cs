@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -15,10 +16,16 @@ namespace SotDLCharGen.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public CharactersController(ApplicationDbContext context)
+        public UserManager<ApplicationUser> _userManager { get; }
+
+        public CharactersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
-            _context = context;
+            {
+                _context = context;
+                _userManager = userManager;
+            }
         }
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         // GET: Characters
         public async Task<IActionResult> Index()
@@ -52,7 +59,6 @@ namespace SotDLCharGen.Controllers
         {
             CharacterCreateViewModel model = new CharacterCreateViewModel(_context);
 
-            //model.Ancestries = await _context.Ancestry.Select(a=>a.AncestryName).ToListAsync();
 
             return View(model);
         }
@@ -64,17 +70,34 @@ namespace SotDLCharGen.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CharacterId,CharacterName,Gender,Level,ApplicationUserId,AncestryId")] Character character)
         {
+
             if (ModelState.IsValid)
             {
+            //get current user and set user property on character to user
+            ApplicationUser user = await GetCurrentUserAsync();
+            character.ApplicationUserId = user.Id;
+
+                //if user selects human
+                //if (character.AncestryId == 1)
+                //{
+                //    return RedirectToAction(nameof(HumanAbilities));
+                //}
+
+                //if user selects non-human
                 _context.Add(character);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("UserHome","ApplicationUser");
             }
+            //ask Emily about this tomorrow
             ViewData["AncestryId"] = new SelectList(_context.Ancestry, "AncestryId", "AncestryId", character.AncestryId);
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUser, "Id", "Id", character.ApplicationUserId);
+            
             return View(character);
         }
 
+        public IActionResult HumanAbilities()
+        {
+            return NotFound();
+        }
         // GET: Characters/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
