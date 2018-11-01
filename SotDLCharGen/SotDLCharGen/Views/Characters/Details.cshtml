@@ -28,12 +28,12 @@
         <dd>
             @Html.DisplayFor(model => model.Level)
         </dd>
-        <dt>
+        @*<dt>
             @Html.DisplayNameFor(model => model.ApplicationUser)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.ApplicationUser.Id)
-        </dd>
+        </dd>*@
         <dt>
             @Html.DisplayNameFor(model => model.Ancestry)
         </dt>
@@ -44,5 +44,5 @@
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.CharacterId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-controller="ApplicationUser" asp-action="UserHome">Back to List</a>
 </div>

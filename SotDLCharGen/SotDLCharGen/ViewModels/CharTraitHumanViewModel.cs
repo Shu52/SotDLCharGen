@@ -22,9 +22,7 @@ namespace SotDLCharGen.ViewModels
 
         public CharTraitHumanViewModel(ApplicationDbContext context)
         {
-            CharTraits = context.CharTrait
-                         .Include("Trait")
-                         .ToList();
+          
                          
         }
     }

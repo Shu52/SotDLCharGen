@@ -72,31 +72,32 @@ namespace SotDLCharGen.Controllers
         {
 
             if (ModelState.IsValid)
+
             {
             //get current user and set user property on character to user
             ApplicationUser user = await GetCurrentUserAsync();
-            character.ApplicationUserId = user.Id;
-
-                //if user selects human
-                if (character.AncestryId == 1)
-                {
-                    //keep current character in context to use in CharTrait Table
-                    _context.Add(character);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(HumanAbilities));
-                }
-
-                //if user selects non-human
-                _context.Add(character);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("UserHome","ApplicationUser");
-            }
-            //ask Emily about this tomorrow
             CharacterCreateViewModel model = new CharacterCreateViewModel(_context);
             model.AncestriesList = new SelectList(_context.Ancestry, "AncestryId", "AncestryId", character.AncestryId);
 
             model.Character = character;
             
+                //if user selects human
+            character.ApplicationUserId = user.Id;
+
+
+                //if user selects non-human
+                _context.Add(character);
+                await _context.SaveChangesAsync();
+                if (model.Character.AncestryId == 1)
+                {
+                    //keep current character in context to use in CharTrait Table
+                    
+                    return RedirectToAction(nameof(HumanAbilities));
+                }
+                return RedirectToAction("UserHome","ApplicationUser");
+            }
+            //ask Emily about this tomorrow
+
             return View(character);
         }
 
@@ -107,10 +108,11 @@ namespace SotDLCharGen.Controllers
             CharTraitHumanViewModel model = new CharTraitHumanViewModel(_context);
 
             var characters = _context.Characters.Last();
+            //var charTrait = _context.CharTrait.Last();
 
             CharTrait humanTraitStrength = new CharTrait
             {
-                CharTraitId = 1,
+                //CharTraitId = charTrait.CharTraitId,
                 CharacterId = characters.CharacterId,
                 TraitId = 1,
                 CharTraitValue = "10"
@@ -118,7 +120,7 @@ namespace SotDLCharGen.Controllers
 
             CharTrait humanTraitAgility = new CharTrait
             {
-                CharTraitId = 2,
+                //CharTraitId = charTrait.CharTraitId,
                 CharacterId = characters.CharacterId,
                 TraitId = 2,
                 CharTraitValue = "10"
@@ -126,7 +128,7 @@ namespace SotDLCharGen.Controllers
 
             CharTrait humanTraitIntellect = new CharTrait
             {
-                CharTraitId = 3,
+                //CharTraitId = charTrait.CharTraitId,
                 CharacterId = characters.CharacterId,
                 TraitId = 3,
                 CharTraitValue = "10"
@@ -134,7 +136,7 @@ namespace SotDLCharGen.Controllers
 
             CharTrait humanTraitWill = new CharTrait
             {
-                CharTraitId = 4,
+                //CharTraitId = charTrait.CharTraitId,
                 CharacterId = characters.CharacterId,
                 TraitId = 4,
                 CharTraitValue = "10"
@@ -225,8 +227,9 @@ namespace SotDLCharGen.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
-            }
+                return RedirectToAction("UserHome", "ApplicationUser");
+            } 
+            //need to change this for edit, get current user for id. See userhome for reference
             ViewData["AncestryId"] = new SelectList(_context.Ancestry, "AncestryId", "AncestryId", character.AncestryId);
             ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUser, "Id", "Id", character.ApplicationUserId);
             return View(character);
@@ -260,7 +263,7 @@ namespace SotDLCharGen.Controllers
             var character = await _context.Characters.FindAsync(id);
             _context.Characters.Remove(character);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("UserHome", "ApplicationUser");
         }
 
         private bool CharacterExists(int id)

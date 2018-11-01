@@ -12,10 +12,7 @@ namespace SotDLCharGen.ViewModels
         [Key]
         public int HumanAbilities { get; set; }
 
-        public List <Trait> Traits { get; }
+        public List <CharTrait> CharTraits { get; }
 
-        public List <AncestryBaseTrait> AncestryBaseTraits { get; }
-
-
-    }
+   }
 }

@@ -1,4 +1,5 @@
-﻿@model SotDLCharGen.ViewModels.HumanAbilitiesViewModel
+﻿@page
+@model SotDLCharGen.Views.Characters.HumanAbilitiesModel
 
 @{
     ViewData["Title"] = "HumanAbilities";
@@ -7,21 +8,20 @@
 
 <h2>HumanAbilities</h2>
 
-<h4>HumanAbilitiesViewModel</h4>
-<hr />
+<h4>CharTraitHumanViewModel</h4>
+@*<hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="HumanAbilities">
+        <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="HumanAbilities" />
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </form>
     </div>
-</div>
+</div>*@
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-page="Index">Back to List</a>
 </div>
 

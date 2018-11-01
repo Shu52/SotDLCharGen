@@ -24,9 +24,9 @@
                     @Html.DisplayFor(modelItem => item.CharacterName)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.CharacterId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.CharacterId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.CharacterId">Delete</a>
+                    <a asp-action="Edit" asp-controller="Characters" asp-route-id="@item.CharacterId">Edit</a> |
+                    <a asp-action="Details" asp-controller="Characters" asp-route-id="@item.CharacterId">Details</a> |
+                    <a asp-action="Delete" asp-controller="Characters" asp-route-id="@item.CharacterId">Delete</a>
                 </td>
             </tr>
 }

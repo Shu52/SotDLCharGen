@@ -1,4 +1,4 @@
-﻿@model SotDLCharGen.ViewModels.HumanAbilitiesViewModel
+﻿@*@model SotDLCharGen.ViewModels.HumanAbilitiesViewModel
 
 @{
     ViewData["Title"] = "HumanAbilities";
@@ -19,7 +19,7 @@
                     <input type="number" name="Strength" value="10" />
                 </div>
                 @*<label style="width: 20px"for="Strength">Strength: @Html.EditorFor(model => model.Traits.Select(t =>t.TraitName).ToString(), new { htmlAttributes = new { @min = "10", @max = "11" , type = "number" } } )</label>*@
-                <div>
+                @*@<div>
 
                     <label for="Agility">Agility:</label>
                     <input type="number" name="Agility" value="10" />
@@ -43,5 +43,5 @@
 
 <div>
     <a asp-action="Index">Back to List</a>
-</div>
+</div>*@
 
