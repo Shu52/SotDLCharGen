@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SotDLCharGen.Data;
 
 namespace SotDLCharGen.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181101144653_ICollectionAdd")]
+    partial class ICollectionAdd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -236,7 +238,7 @@ namespace SotDLCharGen.Data.Migrations
                     b.ToTable("AspNetUsers");
 
                     b.HasData(
-                        new { Id = "c4641873-2727-4054-9b2e-a8990e3b309d", AccessFailedCount = 0, ConcurrencyStamp = "66afd16d-c655-4f09-ac2a-b387cc4d89b4", Email = "test@test.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "TEST@TEST.COM", PasswordHash = "AQAAAAEAACcQAAAAEMn6qHozU3fK5J2a7q8MUFqV+YUvdYIh5wkel9Feytloa0kEpG16spNLGVzWrGcyAA==", PhoneNumberConfirmed = false, PlayerName = "test", SecurityStamp = "57dba13f-201e-4647-9ff5-a8ae72df789d", TwoFactorEnabled = false, UserName = "test" }
+                        new { Id = "f5a43ae4-0f4d-4db6-988c-c1a3460438d7", AccessFailedCount = 0, ConcurrencyStamp = "e9c409b4-79ce-46a5-823c-4695cf124e59", Email = "test@test.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "TEST@TEST.COM", PasswordHash = "AQAAAAEAACcQAAAAEAz4hRO6U+xO/ig4xe0mcJ+1miyKJDMJT2ufH/ywEZO6DQnf8NAggcC9s9j0rKST3A==", PhoneNumberConfirmed = false, PlayerName = "test", SecurityStamp = "15d4770f-7396-4af0-98fa-05616b9e64dc", TwoFactorEnabled = false, UserName = "test" }
                     );
                 });
 
@@ -273,7 +275,7 @@ namespace SotDLCharGen.Data.Migrations
 
             modelBuilder.Entity("SotDLCharGen.Models.CharTrait", b =>
                 {
-                    b.Property<int>("CharTraitId")
+                    b.Property<int>("CharcTraitId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -285,7 +287,7 @@ namespace SotDLCharGen.Data.Migrations
 
                     b.Property<int>("TraitId");
 
-                    b.HasKey("CharTraitId");
+                    b.HasKey("CharcTraitId");
 
                     b.HasIndex("CharTraitHumanViewModelCharTrait");
 
@@ -326,11 +328,7 @@ namespace SotDLCharGen.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("TraitsTraitId");
-
                     b.HasKey("CharTrait");
-
-                    b.HasIndex("TraitsTraitId");
 
                     b.ToTable("CharTraitHumanViewModel");
                 });
@@ -411,7 +409,7 @@ namespace SotDLCharGen.Data.Migrations
             modelBuilder.Entity("SotDLCharGen.Models.Character", b =>
                 {
                     b.HasOne("SotDLCharGen.Models.Ancestry", "Ancestry")
-                        .WithMany("Characters")
+                        .WithMany()
                         .HasForeignKey("AncestryId")
                         .OnDelete(DeleteBehavior.Cascade);
 
@@ -442,13 +440,6 @@ namespace SotDLCharGen.Data.Migrations
                     b.HasOne("SotDLCharGen.ViewModels.HumanAbilitiesViewModel")
                         .WithMany("Traits")
                         .HasForeignKey("HumanAbilitiesViewModelHumanAbilities");
-                });
-
-            modelBuilder.Entity("SotDLCharGen.ViewModels.CharTraitHumanViewModel", b =>
-                {
-                    b.HasOne("SotDLCharGen.Models.Trait", "Traits")
-                        .WithMany()
-                        .HasForeignKey("TraitsTraitId");
                 });
 #pragma warning restore 612, 618
         }

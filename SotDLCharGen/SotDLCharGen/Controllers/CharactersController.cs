@@ -78,10 +78,13 @@ namespace SotDLCharGen.Controllers
             character.ApplicationUserId = user.Id;
 
                 //if user selects human
-                //if (character.AncestryId == 1)
-                //{
-                //    return RedirectToAction(nameof(HumanAbilities));
-                //}
+                if (character.AncestryId == 1)
+                {
+                    //keep current character in context to use in CharTrait Table
+                    _context.Add(character);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(HumanAbilities));
+                }
 
                 //if user selects non-human
                 _context.Add(character);
@@ -89,14 +92,90 @@ namespace SotDLCharGen.Controllers
                 return RedirectToAction("UserHome","ApplicationUser");
             }
             //ask Emily about this tomorrow
-            ViewData["AncestryId"] = new SelectList(_context.Ancestry, "AncestryId", "AncestryId", character.AncestryId);
+            CharacterCreateViewModel model = new CharacterCreateViewModel(_context);
+            model.AncestriesList = new SelectList(_context.Ancestry, "AncestryId", "AncestryId", character.AncestryId);
+
+            model.Character = character;
             
             return View(character);
         }
 
+        //don't know if i need to bind anything
         public IActionResult HumanAbilities()
         {
-            return NotFound();
+
+            CharTraitHumanViewModel model = new CharTraitHumanViewModel(_context);
+
+            var characters = _context.Characters.Last();
+
+            CharTrait humanTraitStrength = new CharTrait
+            {
+                CharTraitId = 1,
+                CharacterId = characters.CharacterId,
+                TraitId = 1,
+                CharTraitValue = "10"
+            };
+
+            CharTrait humanTraitAgility = new CharTrait
+            {
+                CharTraitId = 2,
+                CharacterId = characters.CharacterId,
+                TraitId = 2,
+                CharTraitValue = "10"
+            };
+
+            CharTrait humanTraitIntellect = new CharTrait
+            {
+                CharTraitId = 3,
+                CharacterId = characters.CharacterId,
+                TraitId = 3,
+                CharTraitValue = "10"
+            };
+
+            CharTrait humanTraitWill = new CharTrait
+            {
+                CharTraitId = 4,
+                CharacterId = characters.CharacterId,
+                TraitId = 4,
+                CharTraitValue = "10"
+            };
+
+
+            //foreach (id in trait && id.value < 5 )
+            //{
+            // new chartrait
+            //where characterId= CharacterId,
+            //TraitId = id.value,
+            // CharTraitValue = "10"
+            // }
+
+            //if (ModelState.IsValid)
+            //{
+            //    return RedirectToAction("UserHome", "ApplicationUser");
+            //}
+            //if (!ModelState.IsValid)
+            //{
+            //    return RedirectToAction("UserHome", "ApplicationUser");
+            //}
+
+
+            //chartrait.CharacterId = ModelState.Root.Children.CharacterId;
+
+            //CharTraitHumanViewModel model = new CharTraitHumanViewModel();
+
+            //var character = await _context.Characters
+            //   .Include(c => c.Ancestry)
+            //   .Include(c => c.ApplicationUser)
+            //   .FirstOrDefaultAsync(m => m.CharacterId == id);
+
+            //var model = await _context.CharTrait
+            //   .Include(c => c.Trait)
+            //   .ToListAsync();
+
+            //CharTraitHumanViewModel model = new CharTraitHumanViewModel(_context);
+
+
+            return View();
         }
         // GET: Characters/Edit/5
         public async Task<IActionResult> Edit(int? id)

@@ -9,7 +9,7 @@ namespace SotDLCharGen.Models
     public class CharTrait
     {
         [Key]
-        public int CharcTraitId { get; set; }
+        public int CharTraitId { get; set; }
 
         public string CharTraitValue { get; set; }
 

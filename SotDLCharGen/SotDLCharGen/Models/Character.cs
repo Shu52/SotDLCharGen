@@ -31,5 +31,6 @@ namespace SotDLCharGen.Models
 
         public Ancestry Ancestry { get; set; }
 
+        public virtual ICollection <CharTrait> CharTraits { get; set; } 
     }
 }

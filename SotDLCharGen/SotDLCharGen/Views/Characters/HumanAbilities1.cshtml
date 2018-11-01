@@ -1,0 +1,47 @@
+﻿@model SotDLCharGen.ViewModels.HumanAbilitiesViewModel
+
+@{
+    ViewData["Title"] = "HumanAbilities";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>HumanAbilities</h2>
+
+<h4>HumanAbilitiesViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="HumanAbilities">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div>
+                <div>
+                    <label for="Strength">Strength:</label>
+                    <input type="number" name="Strength" value="10" />
+                </div>
+                @*<label style="width: 20px"for="Strength">Strength: @Html.EditorFor(model => model.Traits.Select(t =>t.TraitName).ToString(), new { htmlAttributes = new { @min = "10", @max = "11" , type = "number" } } )</label>*@
+                <div>
+
+                    <label for="Agility">Agility:</label>
+                    <input type="number" name="Agility" value="10" />
+                </div>
+                <div>
+                    <label for="Intellect">Intellect:</label>
+                    <input type="number" name="Intellect" value="10" />
+                </div>
+                <div>
+                    <label for="Will">Will:</label>
+                    <input type="number" name="Will" value="10" />
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

@@ -37,7 +37,7 @@ namespace SotDLCharGen.Controllers
             var charTrait = await _context.CharTrait
                 .Include(c => c.Character)
                 .Include(c => c.Trait)
-                .FirstOrDefaultAsync(m => m.CharcTraitId == id);
+                .FirstOrDefaultAsync(m => m.CharTraitId == id);
             if (charTrait == null)
             {
                 return NotFound();
@@ -97,7 +97,7 @@ namespace SotDLCharGen.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("CharcTraitId,CharTraitValue,CharacterId,TraitId")] CharTrait charTrait)
         {
-            if (id != charTrait.CharcTraitId)
+            if (id != charTrait.CharTraitId)
             {
                 return NotFound();
             }
@@ -111,7 +111,7 @@ namespace SotDLCharGen.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CharTraitExists(charTrait.CharcTraitId))
+                    if (!CharTraitExists(charTrait.CharTraitId))
                     {
                         return NotFound();
                     }
@@ -138,7 +138,7 @@ namespace SotDLCharGen.Controllers
             var charTrait = await _context.CharTrait
                 .Include(c => c.Character)
                 .Include(c => c.Trait)
-                .FirstOrDefaultAsync(m => m.CharcTraitId == id);
+                .FirstOrDefaultAsync(m => m.CharTraitId == id);
             if (charTrait == null)
             {
                 return NotFound();
@@ -160,7 +160,7 @@ namespace SotDLCharGen.Controllers
 
         private bool CharTraitExists(int id)
         {
-            return _context.CharTrait.Any(e => e.CharcTraitId == id);
+            return _context.CharTrait.Any(e => e.CharTraitId == id);
         }
     }
 }

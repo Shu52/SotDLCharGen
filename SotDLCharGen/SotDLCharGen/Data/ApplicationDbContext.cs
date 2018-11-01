@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SotDLCharGen.Models;
+using SotDLCharGen.ViewModels;
 
 namespace SotDLCharGen.Data
 {
@@ -104,5 +105,9 @@ namespace SotDLCharGen.Data
                 }
                 );
         }
+
+        public DbSet<SotDLCharGen.ViewModels.HumanAbilitiesViewModel> HumanAbilitiesViewModel { get; set; }
+
+        public DbSet<SotDLCharGen.ViewModels.CharTraitHumanViewModel> CharTraitHumanViewModel { get; set; }
     }
     }
