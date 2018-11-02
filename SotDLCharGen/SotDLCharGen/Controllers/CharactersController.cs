@@ -76,6 +76,7 @@ namespace SotDLCharGen.Controllers
             {
             //get current user and set user property on character to user
             ApplicationUser user = await GetCurrentUserAsync();
+
             CharacterCreateViewModel model = new CharacterCreateViewModel(_context);
             model.AncestriesList = new SelectList(_context.Ancestry, "AncestryId", "AncestryId", character.AncestryId);
 
@@ -105,7 +106,23 @@ namespace SotDLCharGen.Controllers
         public IActionResult HumanAbilities()
         {
 
-            CharTraitHumanViewModel model = new CharTraitHumanViewModel(_context);
+            //List<AncestryBaseTrait> ancestryModel = new List<AncestryBaseTrait>();
+            HumanAbilitiesViewModel ancestryModel = new HumanAbilitiesViewModel();
+
+            var ancestryBaseTraits = from ab in _context.AncestryBaseTraits
+                                 join t in _context.Trait on ab.TraitId equals t.TraitId
+                                 join a in _context.Ancestry on ab.AncestryId equals a.AncestryId
+                                 where ab.AncestryId == a.AncestryId && a.AncestryName == "Human"
+                                 select ab;
+
+            ancestryModel.Equals(ancestryBaseTraits);
+
+            //ancestryModel = _context.AncestryBaseTraits
+            //    .Include(a => a.TraitId)
+            //    .Include(a => a.AncestryId)
+            //    .Where(a => a.AncestryId == a.Ancestry.AncestryId && a.Ancestry.AncestryName.Contains("Human")).SelectMany(AncestryBaseTrait => AncestryBaseTrait.BaseValue)
+            //    .ToList();
+
 
             var characters = _context.Characters.Last();
             //var charTrait = _context.CharTrait.Last();
@@ -117,6 +134,13 @@ namespace SotDLCharGen.Controllers
                 TraitId = 1,
                 CharTraitValue = "10"
             };
+            //model.Add(new CharTrait()
+            //{
+            //    CharacterId = characters.CharacterId,
+            //    TraitId = 1,
+            //    CharTraitValue = "10"
+            //});
+            //model.Add(humanTraitStrength)
 
             CharTrait humanTraitAgility = new CharTrait
             {
@@ -177,7 +201,7 @@ namespace SotDLCharGen.Controllers
             //CharTraitHumanViewModel model = new CharTraitHumanViewModel(_context);
 
 
-            return View();
+            return View(ancestryModel);
         }
         // GET: Characters/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -192,6 +216,7 @@ namespace SotDLCharGen.Controllers
             {
                 return NotFound();
             }
+            //need to change this for edit, get current user for id. See userhome for referenc
             ViewData["AncestryId"] = new SelectList(_context.Ancestry, "AncestryId", "AncestryId", character.AncestryId);
             ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUser, "Id", "Id", character.ApplicationUserId);
             return View(character);

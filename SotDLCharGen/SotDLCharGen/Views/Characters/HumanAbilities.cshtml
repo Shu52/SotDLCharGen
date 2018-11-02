@@ -15,6 +15,24 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="HumanAbilities" />
             <div class="form-group">
+                <div>
+                    <label for="Strength">Strength:</label>
+                    <input id ="strength" type="number" name="Strength" value="10" min="10" max="11" />
+                </div>
+                <div>
+                    <label for="Agility">Agility:</label>
+                    <input id="agility" type="number" name="Agility" value="10" min="10" max="11" />
+                </div>
+                <div>
+                    <label for="Intellect">Intellect:</label>
+                    <input id="intellect" type="number" name="Intellect" value="10" min="10" max="11" />
+                </div>
+                <div>
+                    <label for="Will">Will:</label>
+                    <input id ="will" type="number" name="Will" value="10" min="10" max="11" />
+                </div>
+
+                @*<label style="width: 20px"for="Strength">Strength: @Html.EditorFor(model => model.AncestryBaseTraits.Select(t => t.Trait.TraitName).ToString(), new { htmlAttributes = new { @min = "10", @max = "11", type = "number" } })</label>*@
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </form>
