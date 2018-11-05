@@ -1,4 +1,4 @@
-﻿@model SotDLCharGen.Models.Character
+﻿@model SotDLCharGen.ViewModels.HumanDetailsViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -11,22 +11,22 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.CharacterName)
+            @Html.DisplayNameFor(model => model.Character.CharacterName)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.CharacterName)
+            @Html.DisplayFor(model => model.Character.CharacterName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Gender)
+            @Html.DisplayNameFor(model => model.Character.Gender)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Gender)
+            @Html.DisplayFor(model => model.Character.Gender)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Level)
+            @Html.DisplayNameFor(model => model.Character.Level)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Level)
+            @Html.DisplayFor(model => model.Character.Level)
         </dd>
         @*<dt>
             @Html.DisplayNameFor(model => model.ApplicationUser)
@@ -35,14 +35,61 @@
             @Html.DisplayFor(model => model.ApplicationUser.Id)
         </dd>*@
         <dt>
-            @Html.DisplayNameFor(model => model.Ancestry)
+            @Html.DisplayNameFor(model => model.Character.Ancestry)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Ancestry.AncestryId)
+            @Html.DisplayFor(model => model.Character.Ancestry.AncestryName)
         </dd>
+        @*Strength*@
+        <dt>
+            @Html.DisplayFor(model => model.Character.CharTraits.ElementAt(0).Trait.TraitName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Character.CharTraits.ElementAt(0).CharTraitValue)
+        </dd>
+        @*Agility*@
+        <dt>
+            @Html.DisplayFor(model => model.Character.CharTraits.ElementAt(1).Trait.TraitName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Character.CharTraits.ElementAt(1).CharTraitValue)
+        </dd>
+        @*Intellect*@
+        <dt>
+            @Html.DisplayFor(model => model.Character.CharTraits.ElementAt(2).Trait.TraitName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Character.CharTraits.ElementAt(2).CharTraitValue)
+        </dd>
+        @*Will*@
+        <dt>
+            @Html.DisplayFor(model => model.Character.CharTraits.ElementAt(3).Trait.TraitName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Character.CharTraits.ElementAt(3).CharTraitValue)
+        </dd>
+
+        @*Hitpoints = strength for human*@
+        <dt>
+            Hit Points
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Character.CharTraits.ElementAt(0).CharTraitValue)
+        </dd>
+
+        @*Healing rate = 1/4 hitpoints rounded down*@
+        <dt>
+            Healing Rate
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.healingRate)
+        </dd>
+        @*<dt>
+            @Html.DisplayNameFor(model => model.CharTraits.Select(item => item.Trait.TraitName.Contains("Strength")))
+        </dt>*@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.CharacterId">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.Character.CharacterId">Edit</a> |
     <a asp-controller="ApplicationUser" asp-action="UserHome">Back to List</a>
 </div>

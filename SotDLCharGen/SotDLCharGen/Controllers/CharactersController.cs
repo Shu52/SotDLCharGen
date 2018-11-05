@@ -43,10 +43,27 @@ namespace SotDLCharGen.Controllers
                 return NotFound();
             }
 
-            var character = await _context.Characters
+            HumanDetailsViewModel character = new HumanDetailsViewModel(_context);
+
+             character.Character = await _context.Characters
                 .Include(c => c.Ancestry)
                 .Include(c => c.ApplicationUser)
+                .Include(c => c.CharTraits)
+                .ThenInclude(chartraits => chartraits.Trait)
                 .FirstOrDefaultAsync(m => m.CharacterId == id);
+
+            var stringVal = character.Character.CharTraits.ElementAt(0).CharTraitValue;
+
+            int healingRate()
+            {
+                double numVal = Int32.Parse(stringVal);
+                double longVal = Math.Floor(numVal / 4);
+                int returnVal = Convert.ToInt32(longVal);
+                return returnVal;
+            }
+
+            character.healingRate = healingRate();
+            
             if (character == null)
             {
                 return NotFound();
@@ -92,7 +109,7 @@ namespace SotDLCharGen.Controllers
                 await _context.SaveChangesAsync();
                 if (model.Character.AncestryId == 1)
                 {
-                    //keep current character in context to use in CharTrait Table
+                    
                     
                     return RedirectToAction("HumanAbilitiesForm","HumanAbilities");
                 }

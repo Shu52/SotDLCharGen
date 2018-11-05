@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SotDLCharGen.Data;
 
-namespace SotDLCharGen.Data.Migrations
+namespace SotDLCharGen.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181028205023_becauseItToldMeTo")]
-    partial class becauseItToldMeTo
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -234,7 +232,7 @@ namespace SotDLCharGen.Data.Migrations
                     b.ToTable("AspNetUsers");
 
                     b.HasData(
-                        new { Id = "de4882f6-b594-41c5-818b-73093346f575", AccessFailedCount = 0, ConcurrencyStamp = "311bc242-3a20-42fb-ac7e-b0a663bdcc2d", Email = "test@test.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "TEST@TEST.COM", PasswordHash = "AQAAAAEAACcQAAAAEBJUYV/WoJC0uqqwvapmv7OW0O9IhGqpP0YzBl1wUxj2NSu/idStf/XKY2saR4HGsA==", PhoneNumberConfirmed = false, PlayerName = "test", SecurityStamp = "0ab69b38-bab4-4100-85f3-84c53b0b8a33", TwoFactorEnabled = false }
+                        new { Id = "9a992415-1167-47c0-b54d-503d1162147c", AccessFailedCount = 0, ConcurrencyStamp = "bef300bf-3212-4194-a53a-c61f40fbd13e", Email = "test@test.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "TEST@TEST.COM", PasswordHash = "AQAAAAEAACcQAAAAEOqnZ5wfnKr+9j7Oxp+X1Mogp2d0LiOcrYn4WX/FCRYLSTdzptkGdaZU+EAEbEpy0w==", PhoneNumberConfirmed = false, PlayerName = "test", SecurityStamp = "e9042db2-8b63-4410-9dcc-0364bdd274b2", TwoFactorEnabled = false, UserName = "test" }
                     );
                 });
 
@@ -269,7 +267,7 @@ namespace SotDLCharGen.Data.Migrations
 
             modelBuilder.Entity("SotDLCharGen.Models.CharTrait", b =>
                 {
-                    b.Property<int>("CharcTraitId")
+                    b.Property<int>("CharTraitId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -279,7 +277,7 @@ namespace SotDLCharGen.Data.Migrations
 
                     b.Property<int>("TraitId");
 
-                    b.HasKey("CharcTraitId");
+                    b.HasKey("CharTraitId");
 
                     b.HasIndex("CharacterId");
 
@@ -356,12 +354,12 @@ namespace SotDLCharGen.Data.Migrations
             modelBuilder.Entity("SotDLCharGen.Models.AncestryBaseTrait", b =>
                 {
                     b.HasOne("SotDLCharGen.Models.Ancestry", "Ancestry")
-                        .WithMany()
+                        .WithMany("AncestryBaseTraits")
                         .HasForeignKey("AncestryId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SotDLCharGen.Models.Trait", "Trait")
-                        .WithMany()
+                        .WithMany("AncestryBaseTraits")
                         .HasForeignKey("TraitId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -369,24 +367,24 @@ namespace SotDLCharGen.Data.Migrations
             modelBuilder.Entity("SotDLCharGen.Models.Character", b =>
                 {
                     b.HasOne("SotDLCharGen.Models.Ancestry", "Ancestry")
-                        .WithMany()
+                        .WithMany("Characters")
                         .HasForeignKey("AncestryId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SotDLCharGen.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
+                        .WithMany("Characters")
                         .HasForeignKey("ApplicationUserId");
                 });
 
             modelBuilder.Entity("SotDLCharGen.Models.CharTrait", b =>
                 {
                     b.HasOne("SotDLCharGen.Models.Character", "Character")
-                        .WithMany()
+                        .WithMany("CharTraits")
                         .HasForeignKey("CharacterId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SotDLCharGen.Models.Trait", "Trait")
-                        .WithMany()
+                        .WithMany("CharTraits")
                         .HasForeignKey("TraitId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

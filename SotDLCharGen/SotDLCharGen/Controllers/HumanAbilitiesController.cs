@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SotDLCharGen.Data;
 using SotDLCharGen.Models;
 using SotDLCharGen.ViewModels;
@@ -118,10 +119,10 @@ namespace SotDLCharGen.Controllers
             //var attempt = TraitValue.ToLookup;
             CharTrait EntriesToPost = new CharTrait();
 
-            var strenghtValue = collection.ElementAt(1).Value;
-            var agilityValue = collection.ElementAt(2).Value;
-            var intellectValue = collection.ElementAt(3).Value;
-            var WillValue = collection.ElementAt(4).Value;
+            var strenghtValue = collection.ElementAt(0).Value;
+            var agilityValue = collection.ElementAt(1).Value;
+            var intellectValue = collection.ElementAt(2).Value;
+            var WillValue = collection.ElementAt(3).Value;
 
             int TotalValue()
             {
@@ -133,37 +134,52 @@ namespace SotDLCharGen.Controllers
 
             if(ModelState.IsValid && TotalValue() == 42)
             {
+                //HumanAbilitiesViewModel model = new HumanAbilitiesViewModel(_context);
 
                 CharTrait humanTraitStrength = new CharTrait
                 {
                     //CharTraitId = charTrait.CharTraitId,
                     CharacterId = characters.CharacterId,
                     TraitId = 1,
-                    CharTraitValue = collection.ElementAt(1).Value
+                    CharTraitValue = collection.ElementAt(0).Value
                 };
+
+                //add to hold in db context
+                _context.Add(humanTraitStrength);
+
                 CharTrait humanTraitAgility = new CharTrait
                 {
                     //CharTraitId = charTrait.CharTraitId,
                     CharacterId = characters.CharacterId,
                     TraitId = 2,
-                    CharTraitValue = collection.ElementAt(2).Value
+                    CharTraitValue = collection.ElementAt(1).Value
                 };
+
+                //add to hold in db context
+                _context.Add(humanTraitAgility);
 
                 CharTrait humanTraitIntellect = new CharTrait
                 {
                     //CharTraitId = charTrait.CharTraitId,
                     CharacterId = characters.CharacterId,
                     TraitId = 3,
-                    CharTraitValue = collection.ElementAt(3).Value
+                    CharTraitValue = collection.ElementAt(2).Value
                 };
+
+                //add to hold in db context
+                _context.Add(humanTraitIntellect);
 
                 CharTrait humanTraitWill = new CharTrait
                 {
                     //CharTraitId = charTrait.CharTraitId,
                     CharacterId = characters.CharacterId,
                     TraitId = 4,
-                    CharTraitValue = collection.ElementAt(4).Value
+                    CharTraitValue = collection.ElementAt(3).Value
                 };
+
+                //add to hold in db context
+                _context.Add(humanTraitWill);
+                await _context.SaveChangesAsync();
 
                 // TODO: Add insert logic here
 

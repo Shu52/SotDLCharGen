@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SotDLCharGen.Data;
 
-namespace SotDLCharGen.Data.Migrations
+namespace SotDLCharGen.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181101184139_moreIcollections")]
-    partial class moreIcollections
+    [Migration("20181105162735_initialAgain")]
+    partial class initialAgain
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -162,15 +162,11 @@ namespace SotDLCharGen.Data.Migrations
 
                     b.Property<string>("BaseValue");
 
-                    b.Property<int?>("HumanAbilitiesViewModelHumanAbilities");
-
                     b.Property<int>("TraitId");
 
                     b.HasKey("AncestryBaseTraitId");
 
                     b.HasIndex("AncestryId");
-
-                    b.HasIndex("HumanAbilitiesViewModelHumanAbilities");
 
                     b.HasIndex("TraitId");
 
@@ -238,7 +234,7 @@ namespace SotDLCharGen.Data.Migrations
                     b.ToTable("AspNetUsers");
 
                     b.HasData(
-                        new { Id = "c4641873-2727-4054-9b2e-a8990e3b309d", AccessFailedCount = 0, ConcurrencyStamp = "66afd16d-c655-4f09-ac2a-b387cc4d89b4", Email = "test@test.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "TEST@TEST.COM", PasswordHash = "AQAAAAEAACcQAAAAEMn6qHozU3fK5J2a7q8MUFqV+YUvdYIh5wkel9Feytloa0kEpG16spNLGVzWrGcyAA==", PhoneNumberConfirmed = false, PlayerName = "test", SecurityStamp = "57dba13f-201e-4647-9ff5-a8ae72df789d", TwoFactorEnabled = false, UserName = "test" }
+                        new { Id = "9a992415-1167-47c0-b54d-503d1162147c", AccessFailedCount = 0, ConcurrencyStamp = "bef300bf-3212-4194-a53a-c61f40fbd13e", Email = "test@test.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "TEST@TEST.COM", PasswordHash = "AQAAAAEAACcQAAAAEOqnZ5wfnKr+9j7Oxp+X1Mogp2d0LiOcrYn4WX/FCRYLSTdzptkGdaZU+EAEbEpy0w==", PhoneNumberConfirmed = false, PlayerName = "test", SecurityStamp = "e9042db2-8b63-4410-9dcc-0364bdd274b2", TwoFactorEnabled = false, UserName = "test" }
                     );
                 });
 
@@ -266,9 +262,7 @@ namespace SotDLCharGen.Data.Migrations
 
                     b.HasIndex("AncestryId");
 
-                    b.HasIndex("ApplicationUserId")
-                        .IsUnique()
-                        .HasFilter("[ApplicationUserId] IS NOT NULL");
+                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("Characters");
                 });
@@ -279,8 +273,6 @@ namespace SotDLCharGen.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CharTraitHumanViewModelCharTrait");
-
                     b.Property<string>("CharTraitValue");
 
                     b.Property<int>("CharacterId");
@@ -288,8 +280,6 @@ namespace SotDLCharGen.Data.Migrations
                     b.Property<int>("TraitId");
 
                     b.HasKey("CharTraitId");
-
-                    b.HasIndex("CharTraitHumanViewModelCharTrait");
 
                     b.HasIndex("CharacterId");
 
@@ -304,13 +294,9 @@ namespace SotDLCharGen.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("HumanAbilitiesViewModelHumanAbilities");
-
                     b.Property<string>("TraitName");
 
                     b.HasKey("TraitId");
-
-                    b.HasIndex("HumanAbilitiesViewModelHumanAbilities");
 
                     b.ToTable("Trait");
 
@@ -320,32 +306,6 @@ namespace SotDLCharGen.Data.Migrations
                         new { TraitId = 3, TraitName = "Intellect" },
                         new { TraitId = 4, TraitName = "Will" }
                     );
-                });
-
-            modelBuilder.Entity("SotDLCharGen.ViewModels.CharTraitHumanViewModel", b =>
-                {
-                    b.Property<int>("CharTrait")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("TraitsTraitId");
-
-                    b.HasKey("CharTrait");
-
-                    b.HasIndex("TraitsTraitId");
-
-                    b.ToTable("CharTraitHumanViewModel");
-                });
-
-            modelBuilder.Entity("SotDLCharGen.ViewModels.HumanAbilitiesViewModel", b =>
-                {
-                    b.Property<int>("HumanAbilities")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.HasKey("HumanAbilities");
-
-                    b.ToTable("HumanAbilitiesViewModel");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -400,10 +360,6 @@ namespace SotDLCharGen.Data.Migrations
                         .HasForeignKey("AncestryId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("SotDLCharGen.ViewModels.HumanAbilitiesViewModel")
-                        .WithMany("AncestryBaseTraits")
-                        .HasForeignKey("HumanAbilitiesViewModelHumanAbilities");
-
                     b.HasOne("SotDLCharGen.Models.Trait", "Trait")
                         .WithMany("AncestryBaseTraits")
                         .HasForeignKey("TraitId")
@@ -418,16 +374,12 @@ namespace SotDLCharGen.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SotDLCharGen.Models.ApplicationUser", "ApplicationUser")
-                        .WithOne("Characters")
-                        .HasForeignKey("SotDLCharGen.Models.Character", "ApplicationUserId");
+                        .WithMany("Characters")
+                        .HasForeignKey("ApplicationUserId");
                 });
 
             modelBuilder.Entity("SotDLCharGen.Models.CharTrait", b =>
                 {
-                    b.HasOne("SotDLCharGen.ViewModels.CharTraitHumanViewModel")
-                        .WithMany("CharTraits")
-                        .HasForeignKey("CharTraitHumanViewModelCharTrait");
-
                     b.HasOne("SotDLCharGen.Models.Character", "Character")
                         .WithMany("CharTraits")
                         .HasForeignKey("CharacterId")
@@ -437,20 +389,6 @@ namespace SotDLCharGen.Data.Migrations
                         .WithMany("CharTraits")
                         .HasForeignKey("TraitId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("SotDLCharGen.Models.Trait", b =>
-                {
-                    b.HasOne("SotDLCharGen.ViewModels.HumanAbilitiesViewModel")
-                        .WithMany("Traits")
-                        .HasForeignKey("HumanAbilitiesViewModelHumanAbilities");
-                });
-
-            modelBuilder.Entity("SotDLCharGen.ViewModels.CharTraitHumanViewModel", b =>
-                {
-                    b.HasOne("SotDLCharGen.Models.Trait", "Traits")
-                        .WithMany()
-                        .HasForeignKey("TraitsTraitId");
                 });
 #pragma warning restore 612, 618
         }

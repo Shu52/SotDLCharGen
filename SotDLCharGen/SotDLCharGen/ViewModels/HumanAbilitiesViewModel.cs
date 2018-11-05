@@ -1,4 +1,5 @@
-﻿using SotDLCharGen.Models;
+﻿using SotDLCharGen.Data;
+using SotDLCharGen.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,14 +11,14 @@ namespace SotDLCharGen.ViewModels
 {
     public class HumanAbilitiesViewModel
     {
-        [Key]
-        public int HumanAbilities { get; set; }
+        //[Key]
+        //public int HumanAbilities { get; set; }
 
-        public List <CharTrait> CharTraits { get; }
+        //public List <CharTrait> CharTraits { get; }
 
-        public List<AncestryBaseTrait> AncestryBaseTraits { get; set; }
+        //public List<AncestryBaseTrait> AncestryBaseTraits { get; set; }
 
-        public AncestryBaseTrait ancestryBaseTrait { get; set; }
+        //public AncestryBaseTrait ancestryBaseTrait { get; set; }
 
         public int strength { get; set; }
 
@@ -35,5 +36,12 @@ namespace SotDLCharGen.ViewModels
                 return strength + agility + intellect + will;
             }
         }
-   }
+
+        //public HumanAbilitiesViewModel(ApplicationDbContext context)
+        //{
+
+        //}
+
+        //public HumanAbilitiesViewModel() { }
+    }
 }
