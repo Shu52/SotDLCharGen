@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -93,7 +94,7 @@ namespace SotDLCharGen.Controllers
                 {
                     //keep current character in context to use in CharTrait Table
                     
-                    return RedirectToAction(nameof(HumanAbilities));
+                    return RedirectToAction("HumanAbilitiesForm","HumanAbilities");
                 }
                 return RedirectToAction("UserHome","ApplicationUser");
             }
@@ -102,107 +103,8 @@ namespace SotDLCharGen.Controllers
             return View(character);
         }
 
-        //don't know if i need to bind anything
-        public IActionResult HumanAbilities()
-        {
+        
 
-            //List<AncestryBaseTrait> ancestryModel = new List<AncestryBaseTrait>();
-            HumanAbilitiesViewModel ancestryModel = new HumanAbilitiesViewModel();
-
-            var ancestryBaseTraits = from ab in _context.AncestryBaseTraits
-                                 join t in _context.Trait on ab.TraitId equals t.TraitId
-                                 join a in _context.Ancestry on ab.AncestryId equals a.AncestryId
-                                 where ab.AncestryId == a.AncestryId && a.AncestryName == "Human"
-                                 select ab;
-
-            ancestryModel.Equals(ancestryBaseTraits);
-
-            //ancestryModel = _context.AncestryBaseTraits
-            //    .Include(a => a.TraitId)
-            //    .Include(a => a.AncestryId)
-            //    .Where(a => a.AncestryId == a.Ancestry.AncestryId && a.Ancestry.AncestryName.Contains("Human")).SelectMany(AncestryBaseTrait => AncestryBaseTrait.BaseValue)
-            //    .ToList();
-
-
-            var characters = _context.Characters.Last();
-            //var charTrait = _context.CharTrait.Last();
-
-            CharTrait humanTraitStrength = new CharTrait
-            {
-                //CharTraitId = charTrait.CharTraitId,
-                CharacterId = characters.CharacterId,
-                TraitId = 1,
-                CharTraitValue = "10"
-            };
-            //model.Add(new CharTrait()
-            //{
-            //    CharacterId = characters.CharacterId,
-            //    TraitId = 1,
-            //    CharTraitValue = "10"
-            //});
-            //model.Add(humanTraitStrength)
-
-            CharTrait humanTraitAgility = new CharTrait
-            {
-                //CharTraitId = charTrait.CharTraitId,
-                CharacterId = characters.CharacterId,
-                TraitId = 2,
-                CharTraitValue = "10"
-            };
-
-            CharTrait humanTraitIntellect = new CharTrait
-            {
-                //CharTraitId = charTrait.CharTraitId,
-                CharacterId = characters.CharacterId,
-                TraitId = 3,
-                CharTraitValue = "10"
-            };
-
-            CharTrait humanTraitWill = new CharTrait
-            {
-                //CharTraitId = charTrait.CharTraitId,
-                CharacterId = characters.CharacterId,
-                TraitId = 4,
-                CharTraitValue = "10"
-            };
-
-
-            //foreach (id in trait && id.value < 5 )
-            //{
-            // new chartrait
-            //where characterId= CharacterId,
-            //TraitId = id.value,
-            // CharTraitValue = "10"
-            // }
-
-            //if (ModelState.IsValid)
-            //{
-            //    return RedirectToAction("UserHome", "ApplicationUser");
-            //}
-            //if (!ModelState.IsValid)
-            //{
-            //    return RedirectToAction("UserHome", "ApplicationUser");
-            //}
-
-
-            //chartrait.CharacterId = ModelState.Root.Children.CharacterId;
-
-            //CharTraitHumanViewModel model = new CharTraitHumanViewModel();
-
-            //var character = await _context.Characters
-            //   .Include(c => c.Ancestry)
-            //   .Include(c => c.ApplicationUser)
-            //   .FirstOrDefaultAsync(m => m.CharacterId == id);
-
-            //var model = await _context.CharTrait
-            //   .Include(c => c.Trait)
-            //   .ToListAsync();
-
-            //CharTraitHumanViewModel model = new CharTraitHumanViewModel(_context);
-
-
-            return View(ancestryModel);
-        }
         // GET: Characters/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
