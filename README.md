@@ -3,8 +3,8 @@ Back end capstone.
 Character Generator for RPG Shadow of the Demon Lord
 
 ##### Tools Used
-Visual Studio 2017
-Microsoft SQL server Managment Studio
+- Visual Studio 2017
+- Microsoft SQL server Managment Studio
 
 ### Installation
 
