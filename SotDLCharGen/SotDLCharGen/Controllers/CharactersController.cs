@@ -130,15 +130,35 @@ namespace SotDLCharGen.Controllers
                 return NotFound();
             }
 
-            var character = await _context.Characters.FindAsync(id);
-            if (character == null)
+            HumanEditViewModel viewModel = new HumanEditViewModel();
+            ApplicationUser user = await GetCurrentUserAsync();
+
+             viewModel.Character = await _context.Characters
+                            .Where(c => c.CharacterId == id)
+                            .FirstAsync(c => c.ApplicationUserId == user.Id);
+
+            
+
+            if (viewModel.Character == null)
             {
                 return NotFound();
             }
-            //need to change this for edit, get current user for id. See userhome for referenc
-            ViewData["AncestryId"] = new SelectList(_context.Ancestry, "AncestryId", "AncestryId", character.AncestryId);
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUser, "Id", "Id", character.ApplicationUserId);
-            return View(character);
+            //need to change this for edit, get current user for id. See userhome for reference
+            //HumanEditViewModel model = new HumanEditViewModel(_context);
+            //model.AncestriesList = new SelectList(_context.Ancestry, "AncestryId", "AncestryId", character.AncestryId);
+
+            //ApplicationUser user = await GetCurrentUserAsync();
+            //character.ApplicationUserId = user.Id;
+
+            //var ancestryId = _context.Ancestry
+            //    .Where(ancestry => ancestry.AncestryId == character.AncestryId).Single();
+            //character.AncestryId = ancestryId.AncestryId;
+
+            //character.AncestryId = _context.Ancestry
+            //    .Where(ancestry => ancestry.AncestryId == character.AncestryId).Single();
+
+            //ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUser, "Id", "Id", character.ApplicationUserId);
+            return View(viewModel);
         }
 
         // POST: Characters/Edit/5
@@ -146,8 +166,15 @@ namespace SotDLCharGen.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CharacterId,CharacterName,Gender,Level,ApplicationUserId,AncestryId")] Character character)
+        public async Task<IActionResult> Edit(int id, [Bind("CharacterId,CharacterName,Gender,Level,ApplicationUserId, AncestryId")] Character character)
         {
+            //var ancestryId = _context.Ancestry
+            //    .Where(ancestry => ancestry.AncestryId == character.AncestryId).Single();
+            //character.AncestryId = ancestryId.AncestryId;
+
+            ApplicationUser user = await GetCurrentUserAsync();
+            character.ApplicationUserId = user.Id;
+
             if (id != character.CharacterId)
             {
                 return NotFound();
@@ -172,10 +199,11 @@ namespace SotDLCharGen.Controllers
                     }
                 }
                 return RedirectToAction("UserHome", "ApplicationUser");
-            } 
+            }
             //need to change this for edit, get current user for id. See userhome for reference
-            ViewData["AncestryId"] = new SelectList(_context.Ancestry, "AncestryId", "AncestryId", character.AncestryId);
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUser, "Id", "Id", character.ApplicationUserId);
+            //ViewData["AncestryId"] = new SelectList(_context.Ancestry, "AncestryId", "AncestryId", character.AncestryId);
+
+/*            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUser, "Id", "Id", character.ApplicationUserId)*/;
             return View(character);
         }
 
