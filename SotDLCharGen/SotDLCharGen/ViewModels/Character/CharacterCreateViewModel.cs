@@ -13,11 +13,11 @@ namespace SotDLCharGen.ViewModels
 {
     public class CharacterCreateViewModel
     {
+        public Character Character { get; set; }
 
-        public List<SelectListItem> Ancestries { get; set; }
         public SelectList AncestriesList { get; set; }
 
-        public Character Character { get; set; }
+        public List<SelectListItem> Ancestries { get; set; }
 
         public CharacterCreateViewModel(ApplicationDbContext context)
         {

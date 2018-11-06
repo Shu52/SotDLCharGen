@@ -13,8 +13,9 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            @*<input type="hidden" asp-for="HumanAbilities" />*@
+            <div asp-validation-summary="ModelOnly" class="text-danger">
+            </div>
+
             <div class="form-group">
                 <div>
                     <label for="Strength">Strength:</label>
@@ -32,20 +33,16 @@
                     <label for="Will">Will:</label>
                     <input id="will" type="number" name="Will" value="10" min="10" max="11" />
                 </div>
-
-                @*<label style="width: 20px"for="Strength">Strength: @Html.EditorFor(model => model.AncestryBaseTraits.Select(t => t.Trait.TraitName).ToString(), new { htmlAttributes = new { @min = "10", @max = "11", type = "number" } })</label>*@
                 <div class="form-group">
-                    @*@using (Html.BeginForm("HumanAbilitiesCreate", "Characters"))
-                {*@
                     <input type="submit" value="Create" class="btn btn-default" />
-                    @* } *@
                 </div>
             </div>
+
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-controller="ApplicationUser" asp-action="UserHome">Back to List</a>
 </div>
 

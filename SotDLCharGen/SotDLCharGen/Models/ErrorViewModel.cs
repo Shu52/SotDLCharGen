@@ -1,5 +1,3 @@
-using System;
-
 namespace SotDLCharGen.Models
 {
     public class ErrorViewModel

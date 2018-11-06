@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SotDLCharGen.Models
 {
@@ -11,7 +8,7 @@ namespace SotDLCharGen.Models
         [Key]
         public int CharacterId { get; set; }
 
-        [StringLength(30, ErrorMessage = "Max Character limit is 30 characters"), Required]
+        [StringLength(30, ErrorMessage = "Max Character limit is 30 characters"), Required, Display(Name ="Character's Name")]
         public string CharacterName { get; set; }
 
         [StringLength(10, ErrorMessage = "Max Character limit is 10 characters"), Required]

@@ -1,23 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using SotDLCharGen.Data;
 using SotDLCharGen.Models;
-using SotDLCharGen.ViewModels;
 
 namespace SotDLCharGen.Controllers
 {
     public class HumanAbilitiesController : Controller
     {
+        //connection to database
         private readonly ApplicationDbContext _context;
 
-        public UserManager<ApplicationUser> _userManager { get; }
+        //connection to user
+        private UserManager<ApplicationUser> _userManager { get; }
 
         public HumanAbilitiesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
@@ -28,117 +27,47 @@ namespace SotDLCharGen.Controllers
         }
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
-        //don't know if i need to bind anything
+        // GET Controller for human abilites form
         public IActionResult HumanAbilitiesForm()
         {
-
-            //List<AncestryBaseTrait> ancestryModel = new List<AncestryBaseTrait>();
-            HumanAbilitiesViewModel ancestryModel = new HumanAbilitiesViewModel();
-
-            var ancestryBaseTraits = from ab in _context.AncestryBaseTraits
-                                     join t in _context.Trait on ab.TraitId equals t.TraitId
-                                     join a in _context.Ancestry on ab.AncestryId equals a.AncestryId
-                                     where ab.AncestryId == a.AncestryId && a.AncestryName == "Human"
-                                     select ab;
-
-            ancestryModel.Equals(ancestryBaseTraits);
-
-            //ancestryModel = _context.AncestryBaseTraits
-            //    .Include(a => a.TraitId)
-            //    .Include(a => a.AncestryId)
-            //    .Where(a => a.AncestryId == a.Ancestry.AncestryId && a.Ancestry.AncestryName.Contains("Human")).SelectMany(AncestryBaseTrait => AncestryBaseTrait.BaseValue)
-            //    .ToList();
-
-
-            var characters = _context.Characters.Last();
-            //var charTrait = _context.CharTrait.Last();
-
-           
-            //model.Add(new CharTrait()
-            //{
-            //    CharacterId = characters.CharacterId,
-            //    TraitId = 1,
-            //    CharTraitValue = "10"
-            //});
-            //model.Add(humanTraitStrength)
-
-           
-
-
-            //foreach (id in trait && id.value < 5 )
-            //{
-            // new chartrait
-            //where characterId= CharacterId,
-            //TraitId = id.value,
-            // CharTraitValue = "10"
-            // }
-
-            //if (ModelState.IsValid)
-            //{
-            //    return RedirectToAction("UserHome", "ApplicationUser");
-            //}
-            //if (!ModelState.IsValid)
-            //{
-            //    return RedirectToAction("UserHome", "ApplicationUser");
-            //}
-
-
-            //chartrait.CharacterId = ModelState.Root.Children.CharacterId;
-
-            //CharTraitHumanViewModel model = new CharTraitHumanViewModel();
-
-            //var character = await _context.Characters
-            //   .Include(c => c.Ancestry)
-            //   .Include(c => c.ApplicationUser)
-            //   .FirstOrDefaultAsync(m => m.CharacterId == id);
-
-            //var model = await _context.CharTrait
-            //   .Include(c => c.Trait)
-            //   .ToListAsync();
-
-            //CharTraitHumanViewModel model = new CharTraitHumanViewModel(_context);
-
-
-            return View(ancestryModel);
+            return View();
         }
+
         // POST: HumanAbilities/Create
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
         public async Task <IActionResult> Create([Bind ("strength", "agility","intellect", "will" )] IFormCollection collection)
         {
+            //get current user
             ApplicationUser user = await GetCurrentUserAsync();
+
+            //get last character for current user
             var characters = _context.Characters
                 .Where(character => character.ApplicationUserId == user.Id )
                 .Last();
 
-            //var TraitValue = collection.ToList();
-
-            //var test = collection.ElementAt(1).Value;
-
-            //var attempt = TraitValue.ToLookup;
-            CharTrait EntriesToPost = new CharTrait();
-
+            //Assign form values to variables
             var strenghtValue = collection.ElementAt(0).Value;
             var agilityValue = collection.ElementAt(1).Value;
             var intellectValue = collection.ElementAt(2).Value;
             var WillValue = collection.ElementAt(3).Value;
 
+            //Method for validation using form variables
             int TotalValue()
             {
+                //Parse from string to int
                 int numVal = Int32.Parse(strenghtValue) + Int32.Parse(agilityValue) + Int32.Parse(intellectValue) + Int32.Parse(WillValue);
                 return numVal;
             }
 
-            Console.WriteLine("In HumanAbilitiesCreate");
 
             if(ModelState.IsValid && TotalValue() == 42)
             {
-                //HumanAbilitiesViewModel model = new HumanAbilitiesViewModel(_context);
 
+                //build new row in CharTrait table
                 CharTrait humanTraitStrength = new CharTrait
                 {
-                    //CharTraitId = charTrait.CharTraitId,
                     CharacterId = characters.CharacterId,
                     TraitId = 1,
                     CharTraitValue = collection.ElementAt(0).Value
@@ -149,7 +78,6 @@ namespace SotDLCharGen.Controllers
 
                 CharTrait humanTraitAgility = new CharTrait
                 {
-                    //CharTraitId = charTrait.CharTraitId,
                     CharacterId = characters.CharacterId,
                     TraitId = 2,
                     CharTraitValue = collection.ElementAt(1).Value
@@ -160,7 +88,6 @@ namespace SotDLCharGen.Controllers
 
                 CharTrait humanTraitIntellect = new CharTrait
                 {
-                    //CharTraitId = charTrait.CharTraitId,
                     CharacterId = characters.CharacterId,
                     TraitId = 3,
                     CharTraitValue = collection.ElementAt(2).Value
@@ -171,105 +98,23 @@ namespace SotDLCharGen.Controllers
 
                 CharTrait humanTraitWill = new CharTrait
                 {
-                    //CharTraitId = charTrait.CharTraitId,
                     CharacterId = characters.CharacterId,
                     TraitId = 4,
                     CharTraitValue = collection.ElementAt(3).Value
                 };
 
-                //add to hold in db context
+                //add to hold in db context and save context to db
                 _context.Add(humanTraitWill);
                 await _context.SaveChangesAsync();
-
-                // TODO: Add insert logic here
 
                 return RedirectToAction("UserHome", "ApplicationUser");
             }
             else
             {
+                //if failed vaildation, return to form
                 return View("HumanAbilitiesForm");
             }
         }
 
-        // GET: HumanAbilities
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        // GET: HumanAbilities/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: HumanAbilities/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: HumanAbilities/Create
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create(IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add insert logic here
-
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
-
-        // GET: HumanAbilities/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: HumanAbilities/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: HumanAbilities/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: HumanAbilities/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,8 +15,10 @@ namespace SotDLCharGen.Controllers
 {
     public class CharactersController : Controller
     {
+        //connection to database
         private readonly ApplicationDbContext _context;
 
+        //connection to user
         public UserManager<ApplicationUser> _userManager { get; }
 
         public CharactersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
@@ -28,12 +30,7 @@ namespace SotDLCharGen.Controllers
         }
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
-        // GET: Characters
-        public async Task<IActionResult> Index()
-        {
-            var applicationDbContext = _context.Characters.Include(c => c.Ancestry).Include(c => c.ApplicationUser);
-            return View(await applicationDbContext.ToListAsync());
-        }
+
 
         // GET: Characters/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -43,6 +40,7 @@ namespace SotDLCharGen.Controllers
                 return NotFound();
             }
 
+            //connect view model
             HumanDetailsViewModel character = new HumanDetailsViewModel(_context);
 
              character.Character = await _context.Characters
@@ -54,6 +52,7 @@ namespace SotDLCharGen.Controllers
 
             var stringVal = character.Character.CharTraits.ElementAt(0).CharTraitValue;
 
+            //calculate healing rate
             int healingRate()
             {
                 double numVal = Int32.Parse(stringVal);
@@ -62,6 +61,7 @@ namespace SotDLCharGen.Controllers
                 return returnVal;
             }
 
+            //assign healing rate value
             character.healingRate = healingRate();
             
             if (character == null)
@@ -85,54 +85,58 @@ namespace SotDLCharGen.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken, Authorize]
         public async Task<IActionResult> Create([Bind("CharacterId,CharacterName,Gender,Level,ApplicationUserId,AncestryId")] Character character)
         {
 
             if (ModelState.IsValid)
 
             {
-            //get current user and set user property on character to user
-            ApplicationUser user = await GetCurrentUserAsync();
-
-            CharacterCreateViewModel model = new CharacterCreateViewModel(_context);
-            model.AncestriesList = new SelectList(_context.Ancestry, "AncestryId", "AncestryId", character.AncestryId);
-
-            model.Character = character;
+                //get current user and set user property on character to user
+                ApplicationUser user = await GetCurrentUserAsync();
+                character.ApplicationUserId = user.Id;
             
-                //if user selects human
-            character.ApplicationUserId = user.Id;
-
+                //connection to veiw model
+                CharacterCreateViewModel model = new CharacterCreateViewModel(_context);
+            
+                //make dropdown and assign to property on viewmodel
+                model.AncestriesList = new SelectList(_context.Ancestry, "AncestryId", "AncestryId", character.AncestryId);
+            
+                //assign to property character on model
+                model.Character = character;
 
                 //if user selects non-human
                 _context.Add(character);
                 await _context.SaveChangesAsync();
+
+                //if User select Human
                 if (model.Character.AncestryId == 1)
-                {
-                    
-                    
+                {                    
                     return RedirectToAction("HumanAbilitiesForm","HumanAbilities");
                 }
                 return RedirectToAction("UserHome","ApplicationUser");
             }
-            //ask Emily about this tomorrow
-
+            
             return View(character);
         }
 
         
 
         // GET: Characters/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
+            //connection to view model
             HumanEditViewModel viewModel = new HumanEditViewModel();
+
+            //current user
             ApplicationUser user = await GetCurrentUserAsync();
 
+            //fill propert with character by id from route and user id
              viewModel.Character = await _context.Characters
                             .Where(c => c.CharacterId == id)
                             .FirstAsync(c => c.ApplicationUserId == user.Id);
@@ -143,21 +147,7 @@ namespace SotDLCharGen.Controllers
             {
                 return NotFound();
             }
-            //need to change this for edit, get current user for id. See userhome for reference
-            //HumanEditViewModel model = new HumanEditViewModel(_context);
-            //model.AncestriesList = new SelectList(_context.Ancestry, "AncestryId", "AncestryId", character.AncestryId);
 
-            //ApplicationUser user = await GetCurrentUserAsync();
-            //character.ApplicationUserId = user.Id;
-
-            //var ancestryId = _context.Ancestry
-            //    .Where(ancestry => ancestry.AncestryId == character.AncestryId).Single();
-            //character.AncestryId = ancestryId.AncestryId;
-
-            //character.AncestryId = _context.Ancestry
-            //    .Where(ancestry => ancestry.AncestryId == character.AncestryId).Single();
-
-            //ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUser, "Id", "Id", character.ApplicationUserId);
             return View(viewModel);
         }
 
@@ -165,13 +155,10 @@ namespace SotDLCharGen.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken, Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("CharacterId,CharacterName,Gender,Level,ApplicationUserId, AncestryId")] Character character)
         {
-            //var ancestryId = _context.Ancestry
-            //    .Where(ancestry => ancestry.AncestryId == character.AncestryId).Single();
-            //character.AncestryId = ancestryId.AncestryId;
-
+            //Current user  
             ApplicationUser user = await GetCurrentUserAsync();
             character.ApplicationUserId = user.Id;
 
@@ -200,14 +187,12 @@ namespace SotDLCharGen.Controllers
                 }
                 return RedirectToAction("UserHome", "ApplicationUser");
             }
-            //need to change this for edit, get current user for id. See userhome for reference
-            //ViewData["AncestryId"] = new SelectList(_context.Ancestry, "AncestryId", "AncestryId", character.AncestryId);
 
-/*            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUser, "Id", "Id", character.ApplicationUserId)*/;
             return View(character);
         }
 
         // GET: Characters/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -229,7 +214,7 @@ namespace SotDLCharGen.Controllers
 
         // POST: Characters/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken, Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var character = await _context.Characters.FindAsync(id);
