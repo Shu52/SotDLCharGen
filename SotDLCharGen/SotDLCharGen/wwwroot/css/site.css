@@ -46,7 +46,10 @@ body {
     background-color:dimgrey;
     color:white;
 }
-    .btn-grey:hover {
-        background-color: lightgray;
-        box-shadow: 2px 2px dimgrey;
-    }
+.btn-grey:hover {
+    background-color: lightgray;
+    box-shadow: 2px 2px dimgrey;
+}
+#delete-btn{
+    margin-left:9vw;
+}
