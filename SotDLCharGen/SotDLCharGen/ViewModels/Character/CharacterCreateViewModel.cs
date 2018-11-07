@@ -17,6 +17,7 @@ namespace SotDLCharGen.ViewModels
 
         public SelectList AncestriesList { get; set; }
 
+        [Display(Name = "Ancestry",GroupName = "Ancestry")]
         public List<SelectListItem> Ancestries { get; set; }
 
         public CharacterCreateViewModel(ApplicationDbContext context)

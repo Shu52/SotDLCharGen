@@ -5,11 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>HumanAbilities</h2>
-
-<h4>HumanAbilitiesViewModel</h4>
-<hr />
-                <h3 class=" center-block">Please Select Only Two Attributes to Increase by One</h3>
+<h2 class="center-block text-center">Please Select Only Two Attributes to Increase by One</h2>
+                <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
@@ -17,21 +14,21 @@
             </div>
 
             <div class="form-group">
-                <div>
-                    <label for="Strength">Strength:</label>
-                    <input id="strength" type="number" name="Strength" value="10" min="10" max="11" />
+                <div class="form-group form-inline row">
+                    <label class="control-label" for="Strength">Strength:</label>
+                    <input class="form-control" id="strength" type="number" name="Strength" value="10" min="10" max="11" />
                 </div>
-                <div>
-                    <label for="Agility">Agility:</label>
-                    <input id="agility" type="number" name="Agility" value="10" min="10" max="11" />
+                <div class="form-group form-inline row">
+                    <label class="control-label" for="Agility">Agility:</label>
+                    <input class="form-control" id="agility" type="number" name="Agility" value="10" min="10" max="11" />
                 </div>
-                <div>
-                    <label for="Intellect">Intellect:</label>
-                    <input id="intellect" type="number" name="Intellect" value="10" min="10" max="11" />
+                <div class="form-group form-inline">
+                    <label class="control-label" for="Intellect">Intellect:</label>
+                    <input class="form-control" id="intellect" type="number" name="Intellect" value="10" min="10" max="11" />
                 </div>
-                <div>
-                    <label for="Will">Will:</label>
-                    <input id="will" type="number" name="Will" value="10" min="10" max="11" />
+                <div class="form-group form-inline">
+                    <label class="control-label" for="Will">Will:</label>
+                    <input class="form-control" id="will" type="number" name="Will" value="10" min="10" max="11" />
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Create" class="btn btn-default" />

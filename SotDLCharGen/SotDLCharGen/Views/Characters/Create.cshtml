@@ -4,9 +4,8 @@
     ViewData["Title"] = "Create";
 }
 
-<h2>Create</h2>
 
-<h4>Character</h4>
+<h3 class="center-block text-center">A New Hero Arises...</h3>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -28,7 +27,7 @@
                 <span asp-validation-for="Character.Level" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Ancestries" class="control-label"></label>
+                <label asp-for="Ancestries" class="control-label">Ancestry</label>
                 <select asp-for="Character.AncestryId" class="form-control" asp-items="@Model.Ancestries"></select>
                 <span asp-validation-for="Ancestries" class="text-danger"></span>
             </div>
