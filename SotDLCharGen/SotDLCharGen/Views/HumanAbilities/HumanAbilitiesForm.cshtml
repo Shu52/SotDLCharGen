@@ -9,37 +9,44 @@
                 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" class="form-horizontal">
             <div asp-validation-summary="ModelOnly" class="text-danger">
             </div>
 
             <div class="form-group">
-                <div class="form-group form-inline row">
-                    <label class="control-label" for="Strength">Strength:</label>
+                <label class="col-sm-3 control-label" for="Strength">Strength:</label>
+                <div class="col-sm-4">
                     <input class="form-control" id="strength" type="number" name="Strength" value="10" min="10" max="11" />
                 </div>
-                <div class="form-group form-inline row">
-                    <label class="control-label" for="Agility">Agility:</label>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="Agility">Agility:</label>
+                <div class="col-sm-4">
                     <input class="form-control" id="agility" type="number" name="Agility" value="10" min="10" max="11" />
                 </div>
-                <div class="form-group form-inline">
-                    <label class="control-label" for="Intellect">Intellect:</label>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="Intellect">Intellect:</label>
+                <div class="col-sm-4">
                     <input class="form-control" id="intellect" type="number" name="Intellect" value="10" min="10" max="11" />
                 </div>
-                <div class="form-group form-inline">
-                    <label class="control-label" for="Will">Will:</label>
+            </div>
+            <div class="form-group">
+                    <label class="col-sm-3 control-label" for="Will">Will:</label>
+                <div class="col-sm-4">
                     <input class="form-control" id="will" type="number" name="Will" value="10" min="10" max="11" />
                 </div>
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
             </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="button-pad btn btn-grey" />
+                    |
+    <a asp-controller="ApplicationUser" asp-action="UserHome">Back to List</a>
+                </div>
 
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-controller="ApplicationUser" asp-action="UserHome">Back to List</a>
 </div>
 

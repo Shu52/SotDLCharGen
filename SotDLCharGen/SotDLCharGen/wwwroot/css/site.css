@@ -39,3 +39,14 @@ body {
     width:90vw;
     padding-left:5vw;
 }
+.button-pad{
+    margin-left:2vw;
+}
+.btn-grey{
+    background-color:dimgrey;
+    color:white;
+}
+    .btn-grey:hover {
+        background-color: lightgray;
+        box-shadow: 2px 2px dimgrey;
+    }
