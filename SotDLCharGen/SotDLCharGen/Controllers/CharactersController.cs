@@ -95,13 +95,13 @@ namespace SotDLCharGen.Controllers
                 //get current user and set user property on character to user
                 ApplicationUser user = await GetCurrentUserAsync();
                 character.ApplicationUserId = user.Id;
-            
+
                 //connection to veiw model
                 CharacterCreateViewModel model = new CharacterCreateViewModel(_context);
-            
+
                 //make dropdown and assign to property on viewmodel
                 model.AncestriesList = new SelectList(_context.Ancestry, "AncestryId", "AncestryId", character.AncestryId);
-            
+
                 //assign to property character on model
                 model.Character = character;
 
@@ -111,13 +111,66 @@ namespace SotDLCharGen.Controllers
 
                 //if User select Human
                 if (model.Character.AncestryId == 1)
-                {                    
-                    return RedirectToAction("HumanAbilitiesForm","HumanAbilities");
+                {
+                    return RedirectToAction("HumanAbilitiesForm", "HumanAbilities");
                 }
-                return RedirectToAction("UserHome","ApplicationUser");
+
+                else if (model.Character.AncestryId == 2)
+                {
+                    var abt = (from ab in _context.AncestryBaseTraits
+                              join a in _context.Ancestry on ab.AncestryId equals a.AncestryId
+                              where ab.AncestryId == 2
+                              select ab.BaseValue)
+                              .ToList();
+
+                    CharTrait changelingTraitStrength = new CharTrait
+                    {
+                        CharacterId = model.Character.CharacterId,
+                        TraitId = 1,
+                        CharTraitValue = abt.ElementAt(0).ToString()
+
+                    };
+
+                    //add to hold in db context
+                    _context.Add(changelingTraitStrength);
+
+                    CharTrait changelingTraitAgility = new CharTrait
+                    {
+                        CharacterId = model.Character.CharacterId,
+                        TraitId = 2,
+                        CharTraitValue = abt.ElementAt(1).ToString()
+                    };
+
+                    //add to hold in db context
+                    _context.Add(changelingTraitAgility);
+
+                    CharTrait changelingTraitIntellect = new CharTrait
+                    {
+                        CharacterId = model.Character.CharacterId,
+                        TraitId = 3,
+                        CharTraitValue = abt.ElementAt(2).ToString()
+                    };
+
+                    //add to hold in db context
+                    _context.Add(changelingTraitIntellect);
+
+                    CharTrait changelingTraitWill = new CharTrait
+                    {
+                        CharacterId = model.Character.CharacterId,
+                        TraitId = 4,
+                        CharTraitValue = abt.ElementAt(3).ToString()
+                    };
+
+                    //add to hold in db context and save context to db
+                    _context.Add(changelingTraitWill);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("UserHome", "ApplicationUser");
+                }
+
+                return View(character);
             }
-            
-            return View(character);
+            return View();
+
         }
 
         

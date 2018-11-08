@@ -67,47 +67,79 @@ namespace SotDLCharGen.Data
 
                 );
 
-            modelBuilder.Entity<Ancestry>().HasData(
+            modelBuilder.Entity<Ancestry>().HasData
+                (
                     new Ancestry
                     {
                         AncestryId = 1,
                         AncestryName = "Human"
+                    },
+                    new Ancestry
+                    {
+                        AncestryId = 2,
+                        AncestryName = "Changeling"
                     }
-                    );
-            modelBuilder.Entity<AncestryBaseTrait>().HasData(
-                new AncestryBaseTrait
-                {
-                    AncestryBaseTraitId =1,
-                    AncestryId = 1,
-                    TraitId = 1,
-                    BaseValue = "10",
-                },
-                new AncestryBaseTrait
-                {
-                    AncestryBaseTraitId = 2,
-                    AncestryId = 1,
-                    TraitId = 2,
-                    BaseValue = "10",
-                },
-                new AncestryBaseTrait
-                {
-                    AncestryBaseTraitId = 3,
-                    AncestryId = 1,
-                    TraitId = 3,
-                    BaseValue = "10",
-                },
-                new AncestryBaseTrait
-                {
-                    AncestryBaseTraitId = 4,
-                    AncestryId = 1,
-                    TraitId = 4,
-                    BaseValue = "10",
-                }
                 );
+            modelBuilder.Entity<AncestryBaseTrait>().HasData
+                (
+                    new AncestryBaseTrait
+                    {
+                        AncestryBaseTraitId =1,
+                        AncestryId = 1,
+                        TraitId = 1,
+                        BaseValue = "10",
+                    },
+                    new AncestryBaseTrait
+                    {
+                        AncestryBaseTraitId = 2,
+                        AncestryId = 1,
+                        TraitId = 2,
+                        BaseValue = "10",
+                    },
+                    new AncestryBaseTrait
+                    {
+                        AncestryBaseTraitId = 3,
+                        AncestryId = 1,
+                        TraitId = 3,
+                        BaseValue = "10",
+                    },
+                    new AncestryBaseTrait
+                    {
+                        AncestryBaseTraitId = 4,
+                        AncestryId = 1,
+                        TraitId = 4,
+                        BaseValue = "10",
+                    },
+                    new AncestryBaseTrait
+                    {
+                        AncestryBaseTraitId = 5,
+                        AncestryId = 2,
+                        TraitId = 1,
+                        BaseValue = "9"
+                    },
+                    new AncestryBaseTrait
+                    {
+                        AncestryBaseTraitId = 6,
+                        AncestryId = 2,
+                        TraitId = 2,
+                        BaseValue = "10"
+                    },
+                    new AncestryBaseTrait
+                    {
+                        AncestryBaseTraitId = 7,
+                        AncestryId = 2,
+                        TraitId = 3,
+                        BaseValue = "10"
+                    },
+                    new AncestryBaseTrait
+                    {
+                        AncestryBaseTraitId = 8,
+                        AncestryId = 2,
+                        TraitId = 4,
+                        BaseValue = "10"
+                    }
+               );
         }
 
-        //public DbSet<SotDLCharGen.ViewModels.HumanAbilitiesViewModel> HumanAbilitiesViewModel { get; set; }
-
-        //public DbSet<SotDLCharGen.ViewModels.CharTraitHumanViewModel> CharTraitHumanViewModel { get; set; }
     }
-    }
+}
