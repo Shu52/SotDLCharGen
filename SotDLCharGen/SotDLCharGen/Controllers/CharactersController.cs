@@ -47,15 +47,22 @@ namespace SotDLCharGen.Controllers
                 .Include(c => c.Ancestry)
                 .Include(c => c.ApplicationUser)
                 .Include(c => c.CharTraits)
-                .ThenInclude(chartraits => chartraits.Trait)
+                    .ThenInclude(chartraits => chartraits.Trait)
                 .FirstOrDefaultAsync(m => m.CharacterId == id);
 
+            //strength
             var stringVal = character.Character.CharTraits.ElementAt(0).CharTraitValue;
+
+            double numVal = Int32.Parse(stringVal);
+                //dwarves start with + 4 to health
+                if (character.Character.AncestryId == 4)
+                {
+                    numVal += 4;
+                }
 
             //calculate healing rate
             int healingRate()
             {
-                double numVal = Int32.Parse(stringVal);
                 double longVal = Math.Floor(numVal / 4);
                 int returnVal = Convert.ToInt32(longVal);
                 return returnVal;
@@ -163,6 +170,58 @@ namespace SotDLCharGen.Controllers
 
                     //add to hold in db context and save context to db
                     _context.Add(changelingTraitWill);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("UserHome", "ApplicationUser");
+                }
+                //begin clockwork
+                else if (model.Character.AncestryId == 3)
+                {
+                    var abt = (from ab in _context.AncestryBaseTraits
+                               join a in _context.Ancestry on ab.AncestryId equals a.AncestryId
+                               where ab.AncestryId == 3
+                               select ab.BaseValue)
+                              .ToList();
+
+                    CharTrait clockworkTraitStrength = new CharTrait
+                    {
+                        CharacterId = model.Character.CharacterId,
+                        TraitId = 1,
+                        CharTraitValue = abt.ElementAt(0).ToString()
+
+                    };
+
+                    //add to hold in db context
+                    _context.Add(clockworkTraitStrength);
+
+                    CharTrait clockworkTraitAgility = new CharTrait
+                    {
+                        CharacterId = model.Character.CharacterId,
+                        TraitId = 2,
+                        CharTraitValue = abt.ElementAt(1).ToString()
+                    };
+
+                    //add to hold in db context
+                    _context.Add(clockworkTraitAgility);
+
+                    CharTrait clockworkTraitIntellect = new CharTrait
+                    {
+                        CharacterId = model.Character.CharacterId,
+                        TraitId = 3,
+                        CharTraitValue = abt.ElementAt(2).ToString()
+                    };
+
+                    //add to hold in db context
+                    _context.Add(clockworkTraitIntellect);
+
+                    CharTrait clockworkTraitWill = new CharTrait
+                    {
+                        CharacterId = model.Character.CharacterId,
+                        TraitId = 4,
+                        CharTraitValue = abt.ElementAt(3).ToString()
+                    };
+
+                    //add to hold in db context and save context to db
+                    _context.Add(clockworkTraitWill);
                     await _context.SaveChangesAsync();
                     return RedirectToAction("UserHome", "ApplicationUser");
                 }

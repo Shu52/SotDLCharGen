@@ -331,3 +331,5 @@ ASALocalRun/
 
 *.db
 appsettings.json
+appsettings.Development.json
+appsettings.Prod.json

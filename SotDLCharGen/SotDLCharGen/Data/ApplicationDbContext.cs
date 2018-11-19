@@ -78,10 +78,21 @@ namespace SotDLCharGen.Data
                     {
                         AncestryId = 2,
                         AncestryName = "Changeling"
+                    },
+                    new Ancestry
+                    {
+                        AncestryId = 3,
+                        AncestryName = "Clockwork"
+                    },
+                    new Ancestry
+                    {
+                        AncestryId = 4,
+                        AncestryName = "Dwarf"
                     }
                 );
             modelBuilder.Entity<AncestryBaseTrait>().HasData
                 (
+                //begin human
                     new AncestryBaseTrait
                     {
                         AncestryBaseTraitId =1,
@@ -110,6 +121,8 @@ namespace SotDLCharGen.Data
                         TraitId = 4,
                         BaseValue = "10",
                     },
+                    //end human
+                    //begin changeling
                     new AncestryBaseTrait
                     {
                         AncestryBaseTraitId = 5,
@@ -137,7 +150,68 @@ namespace SotDLCharGen.Data
                         AncestryId = 2,
                         TraitId = 4,
                         BaseValue = "10"
+                    },
+                    //end changeling
+                    //begin clockwork
+                    new AncestryBaseTrait
+                    {
+                        AncestryBaseTraitId = 9,
+                        AncestryId = 3,
+                        TraitId = 1,
+                        BaseValue = "9"
+                    },
+                    new AncestryBaseTrait
+                    {
+                        AncestryBaseTraitId = 10,
+                        AncestryId = 3,
+                        TraitId = 2,
+                        BaseValue = "8"
+                    },
+                    new AncestryBaseTrait
+                    {
+                        AncestryBaseTraitId = 11,
+                        AncestryId = 3,
+                        TraitId = 3,
+                        BaseValue = "9"
+                    },
+                    new AncestryBaseTrait
+                    {
+                        AncestryBaseTraitId = 12,
+                        AncestryId = 3, 
+                        TraitId = 4,
+                        BaseValue = "9"
+                    },
+                    //end clockwork
+                    //begin dwarf
+                    new AncestryBaseTrait
+                    {
+                        AncestryBaseTraitId = 13,
+                        AncestryId = 4,
+                        TraitId = 1,
+                        BaseValue = "10"
+                    },
+                    new AncestryBaseTrait
+                    {
+                        AncestryBaseTraitId = 14,
+                        AncestryId = 4,
+                        TraitId = 2,
+                        BaseValue = "9"
+                    },
+                    new AncestryBaseTrait
+                    {
+                        AncestryBaseTraitId = 15,
+                        AncestryId = 4,
+                        TraitId = 3,
+                        BaseValue = "10"
+                    },
+                    new AncestryBaseTrait
+                    {
+                        AncestryBaseTraitId = 16,
+                        AncestryId = 4,
+                        TraitId = 4,
+                        BaseValue = "10"
                     }
+                    //end dwarf
                );
         }
 
