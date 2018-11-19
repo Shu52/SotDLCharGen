@@ -28,6 +28,7 @@ namespace SotDLCharGen.ViewModels
         [Display(Name = " Healing Rate")]
         public int healingRate { get; set; }
 
+        [Display(Name = " Healing Points")]
         public int hitpoints { get; set; }
 
         public virtual ICollection<CharTrait> CharTraits { get; set; }

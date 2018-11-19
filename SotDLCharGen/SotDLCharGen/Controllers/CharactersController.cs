@@ -59,7 +59,7 @@ namespace SotDLCharGen.Controllers
                 {
                     numVal += 4;
                 }
-
+            character.hitpoints = Convert.ToInt32(numVal);
             //calculate healing rate
             int healingRate()
             {
@@ -174,7 +174,7 @@ namespace SotDLCharGen.Controllers
                     return RedirectToAction("UserHome", "ApplicationUser");
                 }
                 //begin clockwork
-                else if (model.Character.AncestryId == 3)
+                if (model.Character.AncestryId == 3)
                 {
                     var abt = (from ab in _context.AncestryBaseTraits
                                join a in _context.Ancestry on ab.AncestryId equals a.AncestryId
@@ -225,6 +225,60 @@ namespace SotDLCharGen.Controllers
                     await _context.SaveChangesAsync();
                     return RedirectToAction("UserHome", "ApplicationUser");
                 }
+                //end clockwork
+                //begin dwarf
+                else if (model.Character.AncestryId == 4)
+                {
+                    var abt = (from ab in _context.AncestryBaseTraits
+                               join a in _context.Ancestry on ab.AncestryId equals a.AncestryId
+                               where ab.AncestryId == 4
+                               select ab.BaseValue)
+                              .ToList();
+
+                    CharTrait dwarfTraitStrength = new CharTrait
+                    {
+                        CharacterId = model.Character.CharacterId,
+                        TraitId = 1,
+                        CharTraitValue = abt.ElementAt(0).ToString()
+
+                    };
+
+                    //add to hold in db context
+                    _context.Add(dwarfTraitStrength);
+
+                    CharTrait dwarfTraitAgility = new CharTrait
+                    {
+                        CharacterId = model.Character.CharacterId,
+                        TraitId = 2,
+                        CharTraitValue = abt.ElementAt(1).ToString()
+                    };
+
+                    //add to hold in db context
+                    _context.Add(dwarfTraitAgility);
+
+                    CharTrait dwarfTraitIntellect = new CharTrait
+                    {
+                        CharacterId = model.Character.CharacterId,
+                        TraitId = 3,
+                        CharTraitValue = abt.ElementAt(2).ToString()
+                    };
+
+                    //add to hold in db context
+                    _context.Add(dwarfTraitIntellect);
+
+                    CharTrait dwarfTraitWill = new CharTrait
+                    {
+                        CharacterId = model.Character.CharacterId,
+                        TraitId = 4,
+                        CharTraitValue = abt.ElementAt(3).ToString()
+                    };
+
+                    //add to hold in db context and save context to db
+                    _context.Add(dwarfTraitWill);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("UserHome", "ApplicationUser");
+                }
+                //end dwarf
 
                 return View(character);
             }
