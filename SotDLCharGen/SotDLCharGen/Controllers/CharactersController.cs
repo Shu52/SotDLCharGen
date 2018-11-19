@@ -227,7 +227,7 @@ namespace SotDLCharGen.Controllers
                 }
                 //end clockwork
                 //begin dwarf
-                else if (model.Character.AncestryId == 4)
+                if (model.Character.AncestryId == 4)
                 {
                     var abt = (from ab in _context.AncestryBaseTraits
                                join a in _context.Ancestry on ab.AncestryId equals a.AncestryId
@@ -279,6 +279,112 @@ namespace SotDLCharGen.Controllers
                     return RedirectToAction("UserHome", "ApplicationUser");
                 }
                 //end dwarf
+                //begin goblin
+                if (model.Character.AncestryId == 5)
+                {
+                    var abt = (from ab in _context.AncestryBaseTraits
+                               join a in _context.Ancestry on ab.AncestryId equals a.AncestryId
+                               where ab.AncestryId == 5
+                               select ab.BaseValue)
+                              .ToList();
+
+                    CharTrait goblinTraitStrength = new CharTrait
+                    {
+                        CharacterId = model.Character.CharacterId,
+                        TraitId = 1,
+                        CharTraitValue = abt.ElementAt(0).ToString()
+
+                    };
+
+                    //add to hold in db context
+                    _context.Add(goblinTraitStrength);
+
+                    CharTrait goblinTraitAgility = new CharTrait
+                    {
+                        CharacterId = model.Character.CharacterId,
+                        TraitId = 2,
+                        CharTraitValue = abt.ElementAt(1).ToString()
+                    };
+
+                    //add to hold in db context
+                    _context.Add(goblinTraitAgility);
+
+                    CharTrait goblinTraitIntellect = new CharTrait
+                    {
+                        CharacterId = model.Character.CharacterId,
+                        TraitId = 3,
+                        CharTraitValue = abt.ElementAt(2).ToString()
+                    };
+
+                    //add to hold in db context
+                    _context.Add(goblinTraitIntellect);
+
+                    CharTrait goblinTraitWill = new CharTrait
+                    {
+                        CharacterId = model.Character.CharacterId,
+                        TraitId = 4,
+                        CharTraitValue = abt.ElementAt(3).ToString()
+                    };
+
+                    //add to hold in db context and save context to db
+                    _context.Add(goblinTraitWill);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("UserHome", "ApplicationUser");
+                }
+                //end goblin
+                //begin orc
+                if (model.Character.AncestryId == 6)
+                {
+                    var abt = (from ab in _context.AncestryBaseTraits
+                               join a in _context.Ancestry on ab.AncestryId equals a.AncestryId
+                               where ab.AncestryId == 6
+                               select ab.BaseValue)
+                              .ToList();
+
+                    CharTrait orcTraitStrength = new CharTrait
+                    {
+                        CharacterId = model.Character.CharacterId,
+                        TraitId = 1,
+                        CharTraitValue = abt.ElementAt(0).ToString()
+
+                    };
+
+                    //add to hold in db context
+                    _context.Add(orcTraitStrength);
+
+                    CharTrait orcTraitAgility = new CharTrait
+                    {
+                        CharacterId = model.Character.CharacterId,
+                        TraitId = 2,
+                        CharTraitValue = abt.ElementAt(1).ToString()
+                    };
+
+                    //add to hold in db context
+                    _context.Add(orcTraitAgility);
+
+                    CharTrait orcTraitIntellect = new CharTrait
+                    {
+                        CharacterId = model.Character.CharacterId,
+                        TraitId = 3,
+                        CharTraitValue = abt.ElementAt(2).ToString()
+                    };
+
+                    //add to hold in db context
+                    _context.Add(orcTraitIntellect);
+
+                    CharTrait orcTraitWill = new CharTrait
+                    {
+                        CharacterId = model.Character.CharacterId,
+                        TraitId = 4,
+                        CharTraitValue = abt.ElementAt(3).ToString()
+                    };
+
+                    //add to hold in db context and save context to db
+                    _context.Add(orcTraitWill);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("UserHome", "ApplicationUser");
+                }
+                //end orc
 
                 return View(character);
             }

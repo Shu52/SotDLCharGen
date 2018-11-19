@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SotDLCharGen.Models;
-using SotDLCharGen.ViewModels;
 
 namespace SotDLCharGen.Data
 {
@@ -88,14 +85,25 @@ namespace SotDLCharGen.Data
                     {
                         AncestryId = 4,
                         AncestryName = "Dwarf"
+                    },
+                    new Ancestry
+                    {
+                        AncestryId = 5,
+                        AncestryName = "Goblin"
+                    },
+                    new Ancestry
+                    {
+                        AncestryId = 6,
+                        AncestryName = "Orc"
                     }
+
                 );
             modelBuilder.Entity<AncestryBaseTrait>().HasData
                 (
                 //begin human
                     new AncestryBaseTrait
                     {
-                        AncestryBaseTraitId =1,
+                        AncestryBaseTraitId = 1,
                         AncestryId = 1,
                         TraitId = 1,
                         BaseValue = "10",
@@ -210,8 +218,69 @@ namespace SotDLCharGen.Data
                         AncestryId = 4,
                         TraitId = 4,
                         BaseValue = "10"
-                    }
+                    },
                     //end dwarf
+                    //Begin Goblin
+                    new AncestryBaseTrait
+                    {
+                        AncestryBaseTraitId = 17,
+                        AncestryId = 5,
+                        TraitId = 1,
+                        BaseValue = "8"
+                    },
+                    new AncestryBaseTrait
+                    {
+                        AncestryBaseTraitId = 18,
+                        AncestryId = 5,
+                        TraitId = 2,
+                        BaseValue = "12"
+                    },
+                    new AncestryBaseTrait
+                    {
+                        AncestryBaseTraitId = 19,
+                        AncestryId = 5,
+                        TraitId = 3,
+                        BaseValue = "10"
+                    },
+                    new AncestryBaseTrait
+                    {
+                        AncestryBaseTraitId = 20,
+                        AncestryId = 5,
+                        TraitId = 4,
+                        BaseValue = "9"
+                    },
+                    //End goblin
+                    //Begin Orc
+                    new AncestryBaseTrait
+                    {
+                        AncestryBaseTraitId = 21,
+                        AncestryId = 6,
+                        TraitId = 1,
+                        BaseValue = "11"
+                    },
+                    new AncestryBaseTrait
+                    {
+                        AncestryBaseTraitId = 22,
+                        AncestryId = 6,
+                        TraitId = 2,
+                        BaseValue = "10"
+                    },
+                    new AncestryBaseTrait
+                    {
+                        AncestryBaseTraitId = 23,
+                        AncestryId = 6,
+                        TraitId = 3,
+                        BaseValue = "9"
+                    },
+                    new AncestryBaseTrait
+                    {
+                        AncestryBaseTraitId = 24,
+                        AncestryId = 6,
+                        TraitId = 4,
+                        BaseValue = "9"
+                    }
+                    //End Orc
+
                );
         }
 
