@@ -17,7 +17,7 @@ namespace SotDLCharGen.Data
         public DbSet<Character> Characters { get; set; }
         public DbSet<CharTrait> CharTrait { get; set; }
         public DbSet<Trait> Trait { get; set; }
-        public DbSet<ClockworkPurpose> clockworkPurposes { get; set; }
+        public DbSet<ClockworkPurpose> ClockworkPurposes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -281,10 +281,34 @@ namespace SotDLCharGen.Data
                         BaseValue = "9"
                     }
                     //End Orc
-
-               );
+                );
             modelBuilder.Entity<ClockworkPurpose>().HasData
                 (
+                    new ClockworkPurpose
+                    {
+                        ClockworkPurposeId = 1,
+                        ClockworkPurposeValue = "You were built for war. Increase your Strength or Agility by 2"
+                    },
+                    new ClockworkPurpose
+                    {
+                        ClockworkPurposeId = 2,
+                        ClockworkPurposeValue = "You were built to work. Increase your Strength by 2"
+                    },
+                    new ClockworkPurpose
+                    {
+                        ClockworkPurposeId = 3,
+                        ClockworkPurposeValue = "You were built to use magic. Increase your Intellect or Will by 2"
+                    },
+                    new ClockworkPurpose
+                    {
+                        ClockworkPurposeId = 4,
+                        ClockworkPurposeValue = "You were built to gather intelligence about or assassinate targets.Increase your Agility or Intellect by 2"
+                    },
+                    new ClockworkPurpose
+                    {
+                        ClockworkPurposeId = 5,
+                        ClockworkPurposeValue = "You were built for an inexplicable purpose. Increase one attribute of your choice by 2"
+                    }
 
                 );
         }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SotDLCharGen.Data;
 
 namespace SotDLCharGen.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181129203939_clockwork-purpose")]
+    partial class clockworkpurpose
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -257,7 +259,7 @@ namespace SotDLCharGen.Migrations
                     b.ToTable("AspNetUsers");
 
                     b.HasData(
-                        new { Id = "da5cbfa2-1ed0-4e65-a78e-213f4954e3e3", AccessFailedCount = 0, ConcurrencyStamp = "b5a37615-e288-4728-883e-19c8882476a9", Email = "test@test.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "TEST@TEST.COM", PasswordHash = "AQAAAAEAACcQAAAAEPGYG6BkZSIJ9HCYIKYdaxihnTo1YKO1ol2a/yxU2Dvc1f1RpYuJr0qRce4vn6dV1w==", PhoneNumberConfirmed = false, PlayerName = "test", SecurityStamp = "dd2c332a-495a-4a1b-b105-ef9ccc3b4640", TwoFactorEnabled = false, UserName = "test" }
+                        new { Id = "70ad08b7-6893-4ea3-8949-a8ffb64ba827", AccessFailedCount = 0, ConcurrencyStamp = "4edbef87-0648-48eb-b1bb-2edf840937f4", Email = "test@test.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "TEST@TEST.COM", PasswordHash = "AQAAAAEAACcQAAAAEJlktN41KODKz7/Y+/TxS8urfaA5gs78rvkB3f/8f6ZkrfE/hfxbVbGx5dFnXpP9IQ==", PhoneNumberConfirmed = false, PlayerName = "test", SecurityStamp = "e318843c-90d1-4603-a1b7-819f6c484db6", TwoFactorEnabled = false, UserName = "test" }
                     );
                 });
 
@@ -325,7 +327,7 @@ namespace SotDLCharGen.Migrations
 
                     b.HasIndex("AncestryId");
 
-                    b.ToTable("ClockworkPurposes");
+                    b.ToTable("clockworkPurposes");
 
                     b.HasData(
                         new { ClockworkPurposeId = 1, ClockworkPurposeValue = "You were built for war. Increase your Strength or Agility by 2" },
