@@ -17,6 +17,7 @@ namespace SotDLCharGen.Data
         public DbSet<Character> Characters { get; set; }
         public DbSet<CharTrait> CharTrait { get; set; }
         public DbSet<Trait> Trait { get; set; }
+        public DbSet<ClockworkPurpose> clockworkPurposes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -282,6 +283,10 @@ namespace SotDLCharGen.Data
                     //End Orc
 
                );
+            modelBuilder.Entity<ClockworkPurpose>().HasData
+                (
+
+                );
         }
 
     }

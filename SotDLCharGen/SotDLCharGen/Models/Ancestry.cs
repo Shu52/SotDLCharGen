@@ -14,5 +14,7 @@ namespace SotDLCharGen.Models
         public virtual ICollection <AncestryBaseTrait> AncestryBaseTraits { get; set; }
 
         public virtual ICollection <Character> Characters { get; set; }
+
+        public virtual ICollection <ClockworkPurpose> ClockworkPurposes { get; set; }
     }
 }
