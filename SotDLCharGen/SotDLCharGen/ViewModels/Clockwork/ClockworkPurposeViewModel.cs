@@ -6,10 +6,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SotDLCharGen.ViewModels.Clockwork
+namespace SotDLCharGen.ViewModels
 {
     public class ClockworkPurposeViewModel
     {
+        public int ClockworkPurposeId { get; set; }
+
         [Display(Name = "Clockwork Purpose", GroupName = "Clockwork Purpose")]
         public List<SelectListItem> ClockworkPurpose { get; set; }
 
@@ -20,5 +22,6 @@ namespace SotDLCharGen.ViewModels.Clockwork
             new SelectListItem { Text = purpose.ClockworkPurposeValue, Value = purpose.ClockworkPurposeId.ToString() }).ToList();
 
         }
+        public ClockworkPurposeViewModel() { }
     }
 }

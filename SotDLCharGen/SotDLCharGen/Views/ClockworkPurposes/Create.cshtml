@@ -1,8 +1,8 @@
-﻿@model SotDLCharGen.Models.ClockworkPurpose
+﻿@model SotDLCharGen.ViewModels.ClockworkPurposeViewModel
 
 @{
     ViewData["Title"] = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 
 <h2>Create</h2>
@@ -13,10 +13,15 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="ClockworkPurposeValue" class="control-label"></label>
                 <input asp-for="ClockworkPurposeValue" class="form-control" />
                 <span asp-validation-for="ClockworkPurposeValue" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <label asp-for="ClockworkPurpose" class="control-label">Clockwork Purpose</label>
+                <select asp-for="ClockworkPurposeId" class="form-control" asp-items="@Model.ClockworkPurpose"></select>
+                <span asp-validation-for="ClockworkPurpose" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
