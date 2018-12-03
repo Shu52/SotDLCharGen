@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SotDLCharGen.Data;
 using SotDLCharGen.Models;
+using SotDLCharGen.ViewModels;
 
 namespace SotDLCharGen.Controllers
 {
@@ -46,7 +47,8 @@ namespace SotDLCharGen.Controllers
         // GET: ClockworkPurposes/Create
         public IActionResult Create()
         {
-            return View();
+            ClockworkPurposeViewModel model = new ClockworkPurposeViewModel(_context);
+            return View(model);
         }
 
         // POST: ClockworkPurposes/Create

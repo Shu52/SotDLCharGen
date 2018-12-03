@@ -223,7 +223,7 @@ namespace SotDLCharGen.Controllers
                     //add to hold in db context and save context to db
                     _context.Add(clockworkTraitWill);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction("UserHome", "ApplicationUser");
+                    return RedirectToAction("Create", "ClockworkPurposes");
                 }
                 //end clockwork
                 //begin dwarf
