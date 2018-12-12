@@ -47,10 +47,7 @@ namespace SotDLCharGen.Controllers
         // GET: ClockworkPurposes/Create
         public IActionResult Create()
         {
-            ViewData["scripts"] = new List<string>()
-            {
-                "clockworkButtons"
-            };
+;
             ClockworkPurposeViewModel model = new ClockworkPurposeViewModel(_context);
             return View(model);
         }
