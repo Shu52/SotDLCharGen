@@ -57,7 +57,7 @@ namespace SotDLCharGen.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ClockworkPurposeId,ClockworkPurposeValue")] ClockworkPurpose clockworkPurpose)
+        public async Task<IActionResult> Create([Bind("ClockworkPurposeId")] ClockworkPurpose clockworkPurpose)
         {
             if (ModelState.IsValid)
             {

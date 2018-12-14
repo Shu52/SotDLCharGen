@@ -8,7 +8,15 @@ const willBtn = document.getElementById("will");
 //assign dom element to variable for testing
 let changedText = document.getElementById('changed');
 //prime changed on load
-changedText.textContent = 1;
+changedText.textContent = "1";
+//options for primed value on load
+if (changedText.textContent === "1") {
+    strBtn.classList.remove("disabled");
+    aglBtn.classList.remove("disabled");
+    intBtn.classList.add("disabled");
+    willBtn.classList.add("disabled");
+    console.log(changedText, "option 1")
+}
 
 //function to assign value to changed and change buttons on change
 function listQ() {
@@ -37,7 +45,8 @@ function listQ() {
         intBtn.classList.remove("disabled");
         willBtn.classList.add("disabled");
     }
-    else {
+
+    if (changedText.textContent === "5") {
         strBtn.classList.remove("disabled");
         aglBtn.classList.remove("disabled");
         intBtn.classList.remove("disabled");
@@ -46,11 +55,3 @@ function listQ() {
 }
 //get value on change to call function
 document.getElementById("ClockworkPurposeId").onchange = listQ;
-//options for primed value on load
-if (changedText.textContent === "1") {
-    strBtn.classList.remove("disabled");
-    aglBtn.classList.remove("disabled");
-    intBtn.classList.add("disabled");
-    willBtn.classList.add("disabled");
-    console.log(changedText, "option 1")
-}
