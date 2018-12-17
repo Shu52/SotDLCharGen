@@ -45,6 +45,7 @@ body {
 .btn-grey{
     background-color:dimgrey;
     color:white;
+    margin:1vw;
 }
 .btn-grey:hover {
     background-color: lightgray;

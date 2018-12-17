@@ -66,4 +66,8 @@ function focusedAttribute(attributeElement) {
         console.log(attributeSelected, attributeElement.id);
     }
 }
+document.getElementById("savePurpose").addEventListener("click", e => {
+    console.log(changedText.textContent,attributeSelected)
+}
+    )
 console.log("class name", document.getElementById('will').classList.contains("hidden"))
