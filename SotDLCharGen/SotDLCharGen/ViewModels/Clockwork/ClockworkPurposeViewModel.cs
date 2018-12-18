@@ -12,6 +12,8 @@ namespace SotDLCharGen.ViewModels
     {
         public int ClockworkPurposeId { get; set; }
 
+        public string SelectedAttr { get; set; }
+
         [Display(Name = "Clockwork Purpose", GroupName = "Clockwork Purpose")]
         public List<SelectListItem> ClockworkPurpose { get; set; }
 

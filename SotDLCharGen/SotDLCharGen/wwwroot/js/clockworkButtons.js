@@ -67,7 +67,24 @@ function focusedAttribute(attributeElement) {
     }
 }
 document.getElementById("savePurpose").addEventListener("click", e => {
-    console.log(changedText.textContent,attributeSelected)
-}
-    )
+    console.log(changedText.textContent, attributeSelected)
+
+    if (attributeSelected === "") {
+        alert("Please Select an Attribute")
+    }
+    else {
+        fetch("https://localhost:5001/ClockworkPurposes/Create", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                ClockworkPurposeId: changedText.textContent,
+                SelectedAttr: attributeSelected
+            })
+        })
+        //will need to change route for production
+        //.then(r => window.location.href = "https://localhost:5001/ApplicationUser/UserHome");
+    }
+})
 console.log("class name", document.getElementById('will').classList.contains("hidden"))
