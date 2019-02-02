@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -58,8 +59,10 @@ namespace SotDLCharGen.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([FromBody] IFormCollection collection)
+        [EnableCors("ShadowPolicy")]
+        public async Task<IActionResult> Create([FromBody] ClockworkPurposeViewModel IdandAttr)
         {
+          
             Console.WriteLine("In controller");
             if (ModelState.IsValid)
             {
